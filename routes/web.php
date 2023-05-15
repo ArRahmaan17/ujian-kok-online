@@ -4,7 +4,6 @@ use App\Http\Controllers\Authentication\LoginController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Middleware\LoggedInCheck;
 use App\Http\Middleware\NotLogged;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,14 +20,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect()->route('authentication.index');
 });
-// must be not login on application 
+// must be not login on application
 Route::prefix('authentication')->middleware([NotLogged::class])->group(function () {
     Route::get('/login', function () {
         return view('authentication.index');
     })->name('authentication.index');
     Route::post('/login', [LoginController::class, 'login'])->name('authentication.login');
 });
-// must be login on application 
+// must be login on application
 Route::prefix('dashboard')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
 })->middleware([LoggedInCheck::class]);

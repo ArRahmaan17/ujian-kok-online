@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::factory()->create([
             'name' => fake()->name(),
             'student_identification_number' => fake()->numberBetween(),
-            'class' => str_shuffle("XIRMB"),
+            'class' => str_shuffle('XIRMB'),
             'homeroom_teacher' => fake()->name('male'),
             'password' => Hash::make('mamanrecing'),
         ]);
