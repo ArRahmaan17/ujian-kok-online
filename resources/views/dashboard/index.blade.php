@@ -1,7 +1,7 @@
 @extends('templates.index')
 @section('content')
     <h1 class="text-2xl">Daftar Ujian Hari ini</h1>
-    <ul role="list" class="divide-y divide-blue-300">
+    <ul role="list" class="divide-y divide-blue-300 w-11/12 md:w-full mx-auto">
         <li class="flex justify-between gap-x-6 py-5 bg-blue-200 rounded-md mt-2 p-1">
             <div class="flex gap-x-4">
                 <div class="min-w-0 flex-auto">

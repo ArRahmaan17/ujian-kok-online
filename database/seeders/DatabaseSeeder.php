@@ -13,12 +13,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\User::factory()->create([
-            'name' => fake()->name(),
-            'student_identification_number' => fake()->numberBetween(),
-            'class' => str_shuffle('XIRMB'),
-            'homeroom_teacher' => fake()->name('male'),
-            'password' => Hash::make('mamanrecing'),
+        \App\Models\User::insert([
+            'username' => 'dev.rahmaan',
+            'password' => Hash::make('password'),
+            'is_developer' => true,
         ]);
+        \App\Models\User::factory(10)->create();
+        \App\Models\Teacher::factory(5)->create();
+        \App\Models\Lesson::factory(10)->create();
+        \App\Models\Classroom::factory(5)->create();
+        \App\Models\Student::factory(5)->create();
     }
 }

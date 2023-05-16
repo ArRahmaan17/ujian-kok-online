@@ -4,6 +4,7 @@ use App\Http\Controllers\Authentication\LoginController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Middleware\LoggedInCheck;
 use App\Http\Middleware\NotLogged;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*

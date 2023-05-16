@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -16,22 +17,18 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        if (rand(100, 1000) % 2 == 0) {
+            $student = true;
+            $teacher = false;
+        } else {
+            $student = false;
+            $teacher = true;
+        }
         return [
-            'name' => fake()->name(),
-            'student_identification_number' => fake()->numberBetween(),
-            'class' => str_shuffle('XIRMB'),
-            'homeroom_teacher' => fake()->name('male'),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'username' => fake('id_ID')->unique()->userName(),
+            'is_teacher' => $teacher,
+            'is_student' => $student,
+            'password' => Hash::make('mamanrecing'), // password
         ];
-    }
-
-    /**
-     * Indicate that the model's email address should be unverified.
-     */
-    public function unverified(): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
-        ]);
     }
 }

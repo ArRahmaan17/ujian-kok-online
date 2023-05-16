@@ -16,14 +16,14 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'name' => 'required|min:8|max:30',
-            'password' => 'required|min:8|max:30',
+            'username' => 'required|max:30',
+            'password' => 'required|max:30',
         ]);
         $credentials = $request->except('_token');
         if (Auth::attempt($credentials)) {
             return redirect()->route('dashboard.index');
         } else {
-            return redirect()->back();
+            return redirect()->back()->withInput()->with('failure', 'Your Credentials not match to our records.');
         }
     }
 }

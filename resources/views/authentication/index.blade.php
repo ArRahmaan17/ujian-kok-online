@@ -14,6 +14,9 @@
         <h1 class="text-4xl mt-3 mb-3 mx-auto text-zinc-200">{{ env('APP_NAME') }}</h1>
         <form action="{{ route('authentication.login') }}" method="POST"
             class="w-full md:w-3/5 p-10 rounded-md bg-zinc-50">
+            @if (session('failure') != null)
+                <div class="p-3 bg-rose-400 rounded-md text-center text-zinc-50 m-2">{{ session('failure') }}</div>
+            @endif
             @csrf
             {{-- carefull here --}}
             <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" class="h-48 mx-auto drop-shadow-2xl"
@@ -136,9 +139,9 @@
             {{-- carefull here --}}
             <label class="block">
                 <span class="text-gray-700">Name</span>
-                <input type="text" name="name"
+                <input type="text" name="username"
                     class="@error('username') border-rose-400 ring-rose-400 @enderror mt-1 px-3 py-2 bg-white border-2 shadow-sm placeholder-slate-400 focus:outline-none focus:border-blue-300 focus:ring-blue-300 block w-full rounded-md sm:text-sm focus:ring-3"
-                    placeholder="ex: mamanrecing17" />
+                    placeholder="ex: mamanrecing17" value="{{ old('name') ?? '' }}" />
                 @error('username')
                     <span class="text-rose-400">{{ $message }}</span>
                 @enderror
