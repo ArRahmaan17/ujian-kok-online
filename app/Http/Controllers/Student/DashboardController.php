@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard;
+namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
 
@@ -8,6 +8,6 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return view('dashboard.index');
+        return view('pages.dashboard.index');
     }
 }

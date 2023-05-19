@@ -1,10 +1,11 @@
 <?php
 
 use App\Http\Controllers\Authentication\LoginController;
-use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Developer\MenuController;
+use App\Http\Controllers\Student\DashboardController;
+use App\Http\Middleware\isDeveloper;
 use App\Http\Middleware\LoggedInCheck;
 use App\Http\Middleware\NotLogged;
-use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,15 +21,23 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return redirect()->route('authentication.index');
-});
+})->middleware([NotLogged::class]);
 // must be not login on application
-Route::prefix('authentication')->middleware([NotLogged::class])->group(function () {
-    Route::get('/login', function () {
-        return view('authentication.index');
-    })->name('authentication.index');
-    Route::post('/login', [LoginController::class, 'login'])->name('authentication.login');
-});
+Route::prefix('authentication')->group(function () {
+    Route::get('/login', [LoginController::class, 'index'])
+        ->name('authentication.index');
+    Route::post('/login', [LoginController::class, 'login'])
+        ->name('authentication.login');
+})->middleware([NotLogged::class]);
 // must be login on application
 Route::prefix('dashboard')->group(function () {
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/', [DashboardController::class, 'index'])
+        ->name('dashboard.index');
 })->middleware([LoggedInCheck::class]);
+// must be a developer user
+
+Route::prefix('developer')->group(function () {
+    Route::prefix('menu')->group(function () {
+        Route::get('/', [MenuController::class, 'index'])->name('menu.index');
+    });
+})->middleware([isDeveloper::class]);

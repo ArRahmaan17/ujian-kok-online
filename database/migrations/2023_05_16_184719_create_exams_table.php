@@ -10,16 +10,22 @@ return new class() extends Migration {
      */
     public function up(): void
     {
-        Schema::create('classrooms', function (Blueprint $table) {
+        Schema::create('exams', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('total_students');
-            $table->integer('homeroom_teacher');
-            $table->foreign('homeroom_teacher')
+            $table->text('description');
+            $table->text('message_for_students');
+            $table->date('date_start');
+            $table->date('date_end');
+            $table->time('time_start');
+            $table->time('time_end');
+            $table->integer('type');
+            $table->foreign('type')
                 ->references('id')
-                ->on('teachers')
+                ->on('exam_types')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
+            $table->boolean('done')->default(false);
             $table->timestamps();
         });
     }
@@ -29,6 +35,6 @@ return new class() extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('classrooms');
+        Schema::dropIfExists('exams');
     }
 };

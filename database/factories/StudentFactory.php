@@ -17,11 +17,12 @@ class StudentFactory extends Factory
     public function definition(): array
     {
         $students = \App\Models\User::where('is_teacher', true);
-        $arrayIds = array();
+        $arrayIds = [];
         foreach ($students->get()->toArray() as $index => $student) {
             $arrayIds[] = $student['id'];
         }
-        $chosenOne =  $students->where('id', fake()->shuffleArray($arrayIds))->first()->id;
+        $chosenOne = $students->where('id', fake()->shuffleArray($arrayIds))->first()->id;
+
         return [
             'full_name' => fake('id_ID')->lastName() . ' ' . fake('id_ID')->lastName(),
             'student_identification_number' => fake('id_ID')->randomNumber(),

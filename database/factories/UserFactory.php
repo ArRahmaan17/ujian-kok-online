@@ -17,13 +17,14 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        if (rand(100, 1000) % 2 == 0) {
+        if (0 == rand(100, 1000) % 2) {
             $student = true;
             $teacher = false;
         } else {
             $student = false;
             $teacher = true;
         }
+
         return [
             'username' => fake('id_ID')->unique()->userName(),
             'is_teacher' => $teacher,

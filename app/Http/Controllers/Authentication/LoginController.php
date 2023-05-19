@@ -21,7 +21,10 @@ class LoginController extends Controller
         ]);
         $credentials = $request->except('_token');
         if (Auth::attempt($credentials)) {
-            return redirect()->route('dashboard.index');
+            if (auth()->user()->is_teacher) {
+            } else {
+                return redirect()->route('dashboard.index');
+            }
         } else {
             return redirect()->back()->withInput()->with('failure', 'Your Credentials not match to our records.');
         }

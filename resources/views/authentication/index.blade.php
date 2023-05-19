@@ -1,19 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <title>{{ env('APP_NAME') }}</title>
-</head>
-
-<body class="bg-gradient-to-b from-slate-500 to-gray-800">
+@extends('templates.full')
+@section('content')
     <div class="flex flex-col content-center min-h-screen mx-auto p-4 items-center justify-items-center justify-center">
         <h1 class="text-4xl mt-3 mb-3 mx-auto text-zinc-200">{{ env('APP_NAME') }}</h1>
-        <form action="{{ route('authentication.login') }}" method="POST"
-            class="w-full md:w-3/5 p-10 rounded-md bg-zinc-50">
+        <form action="{{ route('authentication.login') }}" method="POST" class="w-full md:w-3/5 p-10 rounded-md bg-zinc-50">
             @if (session('failure') != null)
                 <div class="p-3 bg-rose-400 rounded-md text-center text-zinc-50 m-2">{{ session('failure') }}</div>
             @endif
@@ -163,6 +152,4 @@
             </div>
         </form>
     </div>
-</body>
-
-</html>
+@endsection
