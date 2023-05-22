@@ -13,9 +13,9 @@
                     <div class="ml-10 flex items-baseline space-x-4">
                         {{-- navbar md >  --}}
                         <a href="#"
-                            class="{{ explode('/', url()->full())[3] == 'dashboard' ? 'bg-indigo-600 text-white' : 'text-dark hover:bg-indigo-400 hover:text-white dark:text-indigo-600 dark:hover:text-white' }} block rounded-md px-3 py-2 text-base font-medium">Dashboard</a>
+                            class="{{ explode('/', url()->full())[3] == 'dashboard' ? 'bg-slate-600 dark:bg-indigo-600 text-white' : 'text-dark hover:bg-slate-400 hover:text-white dark:text-indigo-600 dark:hover:text-white' }} block rounded-md px-3 py-2 text-base font-medium">Dashboard</a>
                         <a href="#"
-                            class="{{ explode('/', url()->full())[3] == 'schedule' ? 'bg-indigo-600 text-white' : 'text-dark hover:bg-indigo-400 hover:text-white dark:text-indigo-600 dark:hover:text-white' }} block rounded-md px-3 py-2 text-base font-medium">Schedule</a>
+                            class="{{ explode('/', url()->full())[3] == 'schedule' ? 'bg-slate-600 dark:bg-indigo-600 text-white' : 'text-dark hover:bg-slate-400 hover:text-white dark:text-indigo-600 dark:hover:text-white' }} block rounded-md px-3 py-2 text-base font-medium">Schedule</a>
                     </div>
                 </div>
             </div>

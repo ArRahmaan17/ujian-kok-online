@@ -5,10 +5,10 @@ if (!function_exists('displayRouteName')) {
     {
         $explodeRouteName = explode('.', $routeName);
 
-        if ($explodeRouteName[1] == 'index') {
+        if ('index' == $explodeRouteName[1]) {
             return $explodeRouteName[0];
         } else {
-            return $explodeRouteName[1] . " " . $explodeRouteName[0];
+            return $explodeRouteName[1] . ' ' . $explodeRouteName[0];
         }
     }
 }

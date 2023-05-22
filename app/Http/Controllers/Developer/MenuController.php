@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Developer;
 
 use App\Http\Controllers\Controller;
+use App\Models\Menu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
 class MenuController extends Controller
 {
@@ -12,8 +15,8 @@ class MenuController extends Controller
      */
     public function index()
     {
-        // return view('pages.developer.menu.index');
-        return view('pages.developer.menu.create');
+        $menus = Menu::all();
+        return view('pages.developer.menu.index', compact('menus'));
     }
 
     /**
@@ -21,7 +24,7 @@ class MenuController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.developer.menu.create');
     }
 
     /**
@@ -29,7 +32,22 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'route' => 'required',
+            'position' => 'required',
+        ]);
+        DB::beginTransaction();
+        try {
+            $data = $request->except('_token');
+            $data['created_at'] = now('Asia/Jakarta');
+            Menu::storeNewMenu($data);
+            DB::commit();
+            return Redirect()->route('menu.index')->with('message', 'Success, new menu added successfully');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return Redirect()->route('menu.create')->with('message', $th->getMessage());
+        }
     }
 
     /**
@@ -37,7 +55,6 @@ class MenuController extends Controller
      */
     public function show(string $id)
     {
-        //
     }
 
     /**
@@ -45,7 +62,6 @@ class MenuController extends Controller
      */
     public function edit(string $id)
     {
-        //
     }
 
     /**
@@ -53,7 +69,6 @@ class MenuController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
     }
 
     /**
@@ -61,6 +76,5 @@ class MenuController extends Controller
      */
     public function destroy(string $id)
     {
-        //
     }
 }
