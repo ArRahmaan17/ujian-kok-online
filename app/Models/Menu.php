@@ -9,7 +9,7 @@ class Menu extends Model
 {
     use HasFactory;
 
-    static function storeNewMenu(array $newMenu)
+    public static function storeNewMenu(array $newMenu)
     {
         self::insert($newMenu);
     }

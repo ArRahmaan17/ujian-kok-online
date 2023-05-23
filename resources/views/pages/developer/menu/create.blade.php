@@ -38,6 +38,18 @@
                             <span class="text-sm text-rose-500">* Route name on <code
                                     class="bg-slate-400 text-white rounded-md p-1">web.php/api.php</code>
                             </span>
+                            <div class="hidden absolute right-100 z-10 mt-2 w-max-auto origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                                aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+                                <div class="py-1" role="none">
+                                    @foreach ($routes as $route)
+                                        <div class="text-black block px-4 py-2 text-sm cursor-pointer hover:text-slate-500 list-route"
+                                            data-route="{{ $route->action['as'] }}" tabindex="-1">
+                                            {{ $route->action['as'] }}
+                                            <span class="text-xs text-slate-500">{{ $route->uri }}</span>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -72,7 +84,7 @@
                                         class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
                                 </div>
                                 <div class="text-sm leading-6">
-                                    <label for="developer" class="font-medium text-gray-900">Developer</label>
+                                    <label for="developeruseRoute" class="font-medium text-gray-900">Developer</label>
                                 </div>
                             </div>
                             <div class="relative flex gap-x-3">
@@ -123,4 +135,25 @@
                 class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
         </div>
     </form>
+@endsection
+
+@section('script')
+    <script>
+        $(document).ready(function() {
+            $("#route").focus(function() {
+                $($(this).siblings()[1]).removeClass('hidden');
+            });
+            $("#route").blur(function() {
+                $($(this).siblings()[1]).addClass('hidden');
+            });
+            $('.list-route').hover(function() {
+                // over
+                $("#route").val($(this).data('route'));
+            });
+        });
+
+        function useRoute(container) {
+            console.log(container)
+        }
+    </script>
 @endsection

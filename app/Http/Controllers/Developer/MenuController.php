@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Developer;
 use App\Http\Controllers\Controller;
 use App\Models\Menu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Route;
 
 class MenuController extends Controller
 {
@@ -24,7 +26,14 @@ class MenuController extends Controller
      */
     public function create()
     {
-        return view('pages.developer.menu.create');
+        $results = Route::getRoutes()->getRoutesByName();
+        $routes = [];
+        foreach ($results as $index => $result) {
+            if ($result->methods[0] == 'GET' && $result->action['middleware'][0] == 'web' && ($result->action['prefix'] != '/authentication' && $result->action['prefix'] != 'sanctum')) {
+                $routes[] = $result;
+            }
+        }
+        return view('pages.developer.menu.create', compact('routes'));
     }
 
     /**
