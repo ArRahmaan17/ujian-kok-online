@@ -23,7 +23,7 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             if (auth()->user()->is_teacher) {
             } else {
-                return redirect()->route('dashboard.index');
+                return redirect()->route('dashboard');
             }
         } else {
             return redirect()->back()->withInput()->with('failure', 'Your Credentials not match to our records.');

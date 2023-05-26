@@ -16,7 +16,7 @@ class NotLogged
     public function handle(Request $request, \Closure $next): Response
     {
         if (Auth::check()) {
-            return redirect()->route('dashboard.index');
+            return redirect()->route('dashboard');
         } else {
             return $next($request);
         }

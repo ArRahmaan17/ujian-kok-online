@@ -32,10 +32,10 @@ Route::prefix('authentication')->group(function () {
 // must be login on application
 Route::prefix('dashboard')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])
-        ->name('dashboard.index');
+        ->name('dashboard');
 })->middleware([LoggedInCheck::class]);
-// must be a developer user
 
+// must be a developer user
 Route::prefix('developer')->group(function () {
     Route::prefix('menu')->group(function () {
         Route::get('/', [MenuController::class, 'index'])->name('menu.index');
