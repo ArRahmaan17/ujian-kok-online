@@ -43,5 +43,6 @@ Route::prefix('developer')->group(function () {
         Route::post('/store', [MenuController::class, 'store'])->name('menu.store');
         Route::get('/{id}/edit', [MenuController::class, 'edit'])->name('menu.edit');
         Route::put('/{id}/update', [MenuController::class, 'update'])->name('menu.update');
+        Route::put('/order', [MenuController::class, 'order'])->name('menu.order');
     });
 })->middleware([isDeveloper::class]);

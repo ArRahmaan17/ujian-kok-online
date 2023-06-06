@@ -15,9 +15,8 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $navbarMenu = DB::table('menus')->where('position', 'navbar')->orderBy('id', 'asc')->get();
-        $controlMenu = DB::table('menus')->where('position', 'control-menu')->orderBy('id', 'asc')->get();
-
+        $navbarMenu = Menu::where('position', 'navbar')->orderBy('ordered', 'asc')->get();
+        $controlMenu = Menu::where('position', 'control-menu')->orderBy('ordered', 'asc')->get();
         return view('pages.developer.menu.index', compact('navbarMenu', 'controlMenu'));
     }
 
@@ -59,7 +58,7 @@ class MenuController extends Controller
             return Redirect()->route('menu')->with('message', 'Success, new menu added successfully');
         } catch (\Throwable $th) {
             DB::rollBack();
-            dd($th);
+
             return Redirect()->route('menu.create')->with('message', $th->getMessage());
         }
     }
@@ -86,6 +85,28 @@ class MenuController extends Controller
         }
 
         return view('pages.developer.menu.create', compact('routes', 'menu'));
+    }
+
+    public function order(Request $request)
+    {
+        $menus = $request->menus;
+        DB::beginTransaction();
+        try {
+            Menu::orderMenu($menus);
+            DB::commit();
+            $navbarMenu = Menu::where('position', 'navbar')->orderBy('ordered', 'asc')->get();
+            $controlMenu = Menu::where('position', 'control-menu')->orderBy('ordered', 'asc')->get();
+            $response = ['message' => 'successfully ordering menu', 'data' => ['navbar' => $navbarMenu, 'control' => $controlMenu]];
+            $status = 200;
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            $navbarMenu = Menu::where('position', 'navbar')->orderBy('ordered', 'asc')->get();
+            $controlMenu = Menu::where('position', 'control-menu')->orderBy('ordered', 'asc')->get();
+            $status = 400;
+            $response = ['message' => 'ordering menu has been failed', 'data' => ['navbar' => $navbarMenu, 'control' => $controlMenu]];
+        }
+
+        return Response()->json($response, $status);
     }
 
     /**

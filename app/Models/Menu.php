@@ -4,11 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\DB;
 
 class Menu extends Model
 {
     use HasFactory;
+
+    public function user(): HasOne
+    {
+        return $this->hasOne(User::class, 'id', 'created_user');
+    }
 
     public static function storeNewMenu(array $newMenu)
     {
@@ -17,6 +23,16 @@ class Menu extends Model
 
     public static function getLastOrder(string $position)
     {
-        return self::select(DB::raw("max(ordered) as ordered"))->where('position', "$position")->first();
+        return self::select(DB::raw('max(ordered) as ordered'))->where('position', "$position")->first();
+    }
+
+    public static function orderMenu(array $orderedMenu)
+    {
+        foreach ($orderedMenu as $index => $menu) {
+            $menu['updated_at'] = now('Asia/Jakarta');
+            self::where('id', $menu['id'])->update($menu);
+        }
+
+        return true;
     }
 }
