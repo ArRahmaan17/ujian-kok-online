@@ -177,8 +177,8 @@
             });
             $("#route").keydown(function() {
                 $(this).siblings().find('div.py-1').find('div').map(function(index, element) {
-                    if (this.value != "") {
-                        if (element.outerText.split($("#route").val()).length <= 2) {
+                    if ($("#route").val() != "") {
+                        if (element.outerText.split(" ")[0].split($("#route").val()).length <= 1) {
                             $(element).addClass('hidden');
                         } else {
                             $(element).removeClass('hidden');

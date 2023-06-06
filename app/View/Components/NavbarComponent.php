@@ -3,6 +3,7 @@
 namespace App\View\Components;
 
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\Component;
 
 class NavbarComponent extends Component
@@ -19,6 +20,9 @@ class NavbarComponent extends Component
      */
     public function render(): View|\Closure|string
     {
-        return view('components.navbar-component');
+        $navbar = DB::table('menus')->where('position', 'navbar')->get();
+        $controlMenu = DB::table('menus')->where('position', 'control-menu')->get();
+
+        return view('components.navbar-component', compact('navbar', 'controlMenu'));
     }
 }

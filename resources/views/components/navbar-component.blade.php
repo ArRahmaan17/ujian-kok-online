@@ -12,10 +12,10 @@
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
                         {{-- navbar md >  --}}
-                        <a href="#"
-                            class="{{ explode('/', url()->full())[3] == 'dashboard' ? 'bg-slate-600 dark:bg-indigo-600 text-white' : 'text-dark hover:bg-slate-400 hover:text-white dark:text-indigo-600 dark:hover:text-white' }} block rounded-md px-3 py-2 text-base font-medium">Dashboard</a>
-                        <a href="#"
-                            class="{{ explode('/', url()->full())[3] == 'schedule' ? 'bg-slate-600 dark:bg-indigo-600 text-white' : 'text-dark hover:bg-slate-400 hover:text-white dark:text-indigo-600 dark:hover:text-white' }} block rounded-md px-3 py-2 text-base font-medium">Schedule</a>
+                        @foreach ($navbar as $menu)
+                            <a href="{{ route($menu->route) }}"
+                                class="{{ explode('/', url()->full())[count(explode('/', url()->full())) - 1] == Str::lower($menu->name) ? 'bg-slate-600 dark:bg-indigo-600 text-white' : 'text-dark hover:bg-slate-400 hover:text-white dark:text-indigo-600 dark:hover:bg-indigo-300' }} block rounded-md px-3 py-2 text-base font-medium">{{ $menu->name }}</a>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -55,18 +55,22 @@
                             class="hidden right-0 z-10 mt-2 text-white dark:text-dark bg-white dark:bg-black w-48 origin-top-right rounded-md shadow-lg dark:shadow-lg dark:shadow-indigo-800 ring-1 ring-black dark:ring-indigo-400 ring-opacity-5 focus:outline-none"
                             role="menu" aria-orientation="vertical" aria-describedby="user-menu-button"
                             aria-labelledby="user-menu-button" tabindex="-1">
-                            <!-- Active: "bg-gray-100", Not Active: "" -->
-                            <a href="#"
-                                class="{{ explode('/', url()->full())[3] == 'profile' ? 'text-indigo-700 dark:text-indigo-400' : 'text-black dark:text-indigo-600 hover:text-indigo-700 hover:dark:text-indigo-400' }} text-sm block px-4 py-2 rounded-t-lg"
-                                role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
-                            <a href="#"
-                                class="{{ explode('/', url()->full())[3] == 'profile' ? 'text-indigo-700 dark:text-indigo-400' : 'text-black dark:text-indigo-600 hover:text-indigo-700 hover:dark:text-indigo-400' }} text-sm block px-4 py-2"
-                                role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
-                            <a href="#"
-                                class="text-black dark:text-indigo-600 hover:text-indigo-700 hover:dark:text-indigo-400 text-sm block px-4 py-2 rounded-b-lg"
-                                role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
+                            @forelse ($controlMenu as $menu)
+                                <a href="#"
+                                    class="{{ explode('/', url()->full())[3] == 'profile' ? 'text-indigo-700 dark:text-indigo-400' : 'text-black dark:text-indigo-600 hover:text-indigo-700 hover:dark:text-indigo-400' }} text-sm block px-4 py-2 rounded-t-lg"
+                                    role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
+                            @empty
+                                <a href="#"
+                                    class="{{ explode('/', url()->full())[3] == 'profile' ? 'text-indigo-700 dark:text-indigo-400' : 'text-black dark:text-indigo-600 hover:text-indigo-700 hover:dark:text-indigo-400' }} text-sm block px-4 py-2 rounded-t-lg"
+                                    role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
+                                <a href="#"
+                                    class="{{ explode('/', url()->full())[3] == 'profile' ? 'text-indigo-700 dark:text-indigo-400' : 'text-black dark:text-indigo-600 hover:text-indigo-700 hover:dark:text-indigo-400' }} text-sm block px-4 py-2"
+                                    role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
+                                <a href="#"
+                                    class="text-black dark:text-indigo-600 hover:text-indigo-700 hover:dark:text-indigo-400 text-sm block px-4 py-2 rounded-b-lg"
+                                    role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
+                            @endforelse
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -95,10 +99,10 @@
     <!-- Mobile menu, show/hide based on menu state. -->
     <div class="hidden" id="mobile-menu">
         <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-            <a href="#"
-                class="{{ explode('/', url()->full())[3] == 'dashboard' ? 'bg-indigo-600 text-white' : 'text-dark hover:bg-indigo-400 hover:text-white dark:text-indigo-600 dark:hover:text-white' }} block rounded-md px-3 py-2 text-base font-medium">Dashboard</a>
-            <a href="#"
-                class="{{ explode('/', url()->full())[3] == 'schedule' ? 'bg-indigo-600 text-white' : 'text-dark hover:bg-indigo-400 hover:text-white dark:text-indigo-600 dark:hover:text-white' }} block rounded-md px-3 py-2 text-base font-medium">Schedule</a>
+            @foreach ($navbar as $menu)
+                <a href="{{ route($menu->route) }}"
+                    class="{{ explode('/', url()->full())[count(explode('/', url()->full())) - 1] == Str::lower($menu->name) ? 'bg-slate-600 dark:bg-indigo-600 text-white' : 'text-dark hover:bg-slate-400 hover:text-white dark:text-indigo-600 dark:hover:bg-indigo-300' }} block rounded-md px-3 py-2 text-base font-medium">{{ $menu->name }}</a>
+            @endforeach
         </div>
         <div class="border-t border-gray-700 pb-3 pt-4">
             <div class="flex justify-between px-6">
@@ -129,15 +133,21 @@
                 </button>
             </div>
             <div class="mt-3 space-y-1 px-2">
-                <a href="#"
-                    class="{{ explode('/', url()->full())[3] == 'profile' ? 'text-indigo-700 dark:text-indigo-400' : 'text-black dark:text-indigo-600 hover:text-indigo-700 hover:dark:text-indigo-400' }} text-sm block px-4 py-2 rounded-t-lg"
-                    role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
-                <a href="#"
-                    class="{{ explode('/', url()->full())[3] == 'profile' ? 'text-indigo-700 dark:text-indigo-400' : 'text-black dark:text-indigo-600 hover:text-indigo-700 hover:dark:text-indigo-400' }} text-sm block px-4 py-2"
-                    role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
-                <a href="#"
-                    class="text-black dark:text-indigo-600 hover:text-indigo-700 hover:dark:text-indigo-400 text-sm block px-4 py-2 rounded-b-lg"
-                    role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
+                @forelse ($controlMenu as $menu)
+                    <a href="#"
+                        class="{{ explode('/', url()->full())[3] == 'profile' ? 'text-indigo-700 dark:text-indigo-400' : 'text-black dark:text-indigo-600 hover:text-indigo-700 hover:dark:text-indigo-400' }} text-sm block px-4 py-2 rounded-t-lg"
+                        role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
+                @empty
+                    <a href="#"
+                        class="{{ explode('/', url()->full())[3] == 'profile' ? 'text-indigo-700 dark:text-indigo-400' : 'text-black dark:text-indigo-600 hover:text-indigo-700 hover:dark:text-indigo-400' }} text-sm block px-4 py-2 rounded-t-lg"
+                        role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
+                    <a href="#"
+                        class="{{ explode('/', url()->full())[3] == 'profile' ? 'text-indigo-700 dark:text-indigo-400' : 'text-black dark:text-indigo-600 hover:text-indigo-700 hover:dark:text-indigo-400' }} text-sm block px-4 py-2"
+                        role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
+                    <a href="#"
+                        class="text-black dark:text-indigo-600 hover:text-indigo-700 hover:dark:text-indigo-400 text-sm block px-4 py-2 rounded-b-lg"
+                        role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
+                @endforelse
             </div>
         </div>
     </div>

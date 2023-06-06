@@ -15,9 +15,10 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $menus = Menu::orderBy('id', 'asc')->get();
+        $navbarMenu = DB::table('menus')->where('position', 'navbar')->orderBy('id', 'asc')->get();
+        $controlMenu = DB::table('menus')->where('position', 'control-menu')->orderBy('id', 'asc')->get();
 
-        return view('pages.developer.menu.index', compact('menus'));
+        return view('pages.developer.menu.index', compact('navbarMenu', 'controlMenu'));
     }
 
     /**
@@ -50,13 +51,15 @@ class MenuController extends Controller
         try {
             $data = $request->except('_token');
             $data['created_at'] = now('Asia/Jakarta');
+            $data['created_user'] = auth()->id();
+            $data['ordered'] = intval(Menu::getLastOrder($data['position'])->ordered) + 1;
             Menu::storeNewMenu($data);
             DB::commit();
 
-            return Redirect()->route('menu.index')->with('message', 'Success, new menu added successfully');
+            return Redirect()->route('menu')->with('message', 'Success, new menu added successfully');
         } catch (\Throwable $th) {
             DB::rollBack();
-
+            dd($th);
             return Redirect()->route('menu.create')->with('message', $th->getMessage());
         }
     }
@@ -97,6 +100,15 @@ class MenuController extends Controller
         ]);
         $data = $request->except('_token', '_method');
         $data['updated_at'] = now('Asia/Jakarta');
+        if (!isset($data['for_developer'])) {
+            $data['for_developer'] = false;
+        }
+        if (!isset($data['for_teacher'])) {
+            $data['for_teacher'] = false;
+        }
+        if (!isset($data['for_student'])) {
+            $data['for_student'] = false;
+        }
         DB::beginTransaction();
         try {
             Menu::where('id', $id)->update($data);
