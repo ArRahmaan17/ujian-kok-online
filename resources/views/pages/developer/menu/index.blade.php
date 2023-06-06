@@ -10,7 +10,7 @@
                         </div>
                         <div class="basis-1/12">
                             <a href="{{ route('menu.create') }}"
-                                class="block p-2 bg-black text-white dark:bg-indigo-600 text-center rounded-md shadow-lg dark:shadow-indigo-700">New
+                                class="block p-2 bg-black text-white dark:bg-indigo-600 text-xs text-center rounded-md shadow-lg dark:shadow-indigo-700">New
                                 Menu</a>
                         </div>
                     </div>
@@ -36,11 +36,11 @@
                                     </td>
                                     <td class="whitespace-nowrap font-medium py-4 dark:text-white">
                                         <div class="flex flex-row w-max-24">
-                                            <a href="{{ route('menu.create') }}"
+                                            <a href="{{ route('menu.edit', $menu->id) }}"
                                                 class="transition block p-2 bg-orange-500 text-white font-medium dark:bg-orange-400 text-center rounded-md scale-95 hover:shadow-lg hover:scale-100 dark:shadow-orange-300">Edit
                                                 Menu</a>
                                             <a href="{{ route('menu.create') }}"
-                                                class="transition block p-2 bg-orange-500 text-white font-medium dark:bg-indigo-600 text-center rounded-md scale-95 hover:shadow-lg hover:scale-100 dark:shadow-indigo-700">Edit
+                                                class="transition block p-2 bg-rose-700 text-white font-medium dark:bg-rose-400 text-center rounded-md scale-95 hover:shadow-lg hover:scale-100 dark:shadow-rose-700">Delete
                                                 Menu</a>
                                         </div>
                                     </td>

@@ -9,11 +9,17 @@
             @endforeach
         </div>
     @endif
-    <form class="px-8 sm:px-0" action="{{ route('menu.store') }}" method="POST" autocomplete="off">
+    <form class="px-8 sm:px-0"
+        action="@if (isset($menu)) {{ route('menu.update', $menu->id) }} @else{{ route('menu.store') }} @endif"
+        method="POST" autocomplete="off">
+        @if (isset($menu))
+            @method('put')
+        @endif
         @csrf
         <div class="space-y-12">
             <div class="border-b border-gray-900/10 pb-12">
-                <h2 class="text-2xl font-semibold leading-7 text-dark dark:text-indigo-600 capitalize">create menu
+                <h2 class="text-2xl font-semibold leading-7 text-dark dark:text-indigo-600 capitalize">
+                    {{ displayRouteName(request()->route()->getname()) }}
                 </h2>
                 <p class="mt-1 text-md leading-6 text-gray-600 dark:text-indigo-300 capitalize">
                     control the direction of your app's destination
@@ -25,10 +31,13 @@
                             class="block text-sm font-medium leading-6 text-dark dark:text-indigo-600 capitalize">menu
                             name</label>
                         <div class="mt-2">
-                            <input type="text" name="name" id="name"
-                                class="block w-full rounded-md border-0 py-1.5 text-dark dark:bg-black dark:ring-indigo-600 dark:text-indigo-200 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                            <span class="text-sm text-rose-500">* The name of the menu to be displayed on the web
-                                page</span>
+                            <input type="text" name="name" id="name" value="{{ $menu->name ?? '' }}"
+                                class="block w-full
+                                rounded-md border-0 py-1.5 text-dark dark:bg-black dark:ring-indigo-600 dark:text-indigo-200
+                                shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset
+                                focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            <span class="text-sm text-rose-500">
+                                * The name of the menu to be displayed on the web page</span>
                         </div>
                     </div>
 
@@ -36,8 +45,11 @@
                         <label for="route"
                             class="block text-sm font-medium leading-6 text-dark dark:text-indigo-600">Route Name</label>
                         <div class="mt-2">
-                            <input type="text" name="route" id="route" autocomplete="family-name"
-                                class="block w-full rounded-md border-0 py-1.5 text-dark dark:bg-black dark:ring-indigo-600 dark:text-indigo-200 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            <input type="text" name="route" id="route" value="{{ $menu->route ?? '' }}"
+                                class="block w-full
+                                rounded-md border-0 py-1.5 text-dark dark:bg-black dark:ring-indigo-600 dark:text-indigo-200
+                                shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2
+                                focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                             <span class="text-sm text-rose-500">* Route name on <code
                                     class="bg-slate-400 text-white rounded-md p-1">web.php/api.php</code>
                             </span>
@@ -63,9 +75,11 @@
                             position</label>
                         <div class="mt-2">
                             <select id="position" name="position"
-                                class="block w-full rounded-md border-0 py-1.5 text-dark dark:text-indigo-600 dark:ring-indigo-600  dark:bg-black shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                <option value="navbar">Navbar</option>
-                                <option value="control-menu">Control Menu</option>
+                                class="block w-full rounded-md border-0 py-1.5 text-dark dark:text-indigo-300 dark:ring-indigo-600  dark:bg-black shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                <option value="navbar" @if (isset($menu) && $menu->position == 'navbar') @selected(true) @endif>Navbar
+                                </option>
+                                <option value="control-menu" @if (isset($menu) && $menu->position == 'control-menu') @selected(true) @endif>
+                                    Control Menu</option>
                             </select>
                             <span class="text-sm text-rose-500 ">* Menu position on the web page</span>
                         </div>
@@ -85,7 +99,9 @@
                         <div class="mt-6 space-y-6">
                             <div class="relative flex gap-x-3">
                                 <div class="flex h-6 items-center">
-                                    <input id="developer" name="for_developer" type="checkbox" checked value="true"
+                                    <input id="developer" name="for_developer"
+                                        @if (isset($menu) && $menu->for_developer) @checked(true) @endif type="checkbox"
+                                        value="true"
                                         class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
                                 </div>
                                 <div class="text-sm leading-6">
@@ -95,7 +111,8 @@
                             </div>
                             <div class="relative flex gap-x-3">
                                 <div class="flex h-6 items-center">
-                                    <input id="teacher" name="for_teacher" type="checkbox" value="true"
+                                    <input id="teacher" name="for_teacher" type="checkbox"
+                                        @if (isset($menu) && $menu->for_teacher) @checked(true) @endif value="true"
                                         class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
                                 </div>
                                 <div class="text-sm leading-6">
@@ -104,7 +121,9 @@
                             </div>
                             <div class="relative flex gap-x-3">
                                 <div class="flex h-6 items-center">
-                                    <input id="student" name="for_student" type="checkbox" value="true"
+                                    <input id="student" name="for_student"
+                                        @if (isset($menu) && $menu->for_student) @checked(true) @endif type="checkbox"
+                                        value="true"
                                         class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
                                 </div>
                                 <div class="text-sm leading-6">
@@ -120,13 +139,15 @@
                         </p>
                         <div class="mt-6 space-y-6">
                             <div class="flex items-center gap-x-3">
-                                <input id="maintenance" name="maintenance" type="radio" value="true"
+                                <input id="maintenance" name="maintenance"
+                                    @if (isset($menu) && $menu->maintenance) @checked(true) @endif type="radio" value="true"
                                     class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600">
                                 <label for="maintenance"
                                     class="block text-sm font-medium leading-6 text-dark dark:text-indigo-600">Yes</label>
                             </div>
                             <div class="flex items-center gap-x-3">
-                                <input id="not-maintenance" name="maintenance" type="radio" checked value="false"
+                                <input id="not-maintenance" name="maintenance" type="radio"
+                                    @if (isset($menu) && !$menu->maintenance) @checked(true) @endif value="false"
                                     class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600">
                                 <label for="not-maintenance"
                                     class="block text-sm font-medium leading-6 text-dark dark:text-indigo-600">No</label>
@@ -138,9 +159,9 @@
         </div>
         <div class="mt-6 flex items-center justify-end gap-x-6">
             <a type="button" class="text-sm font-semibold leading-6 text-dark dark:text-indigo-600"
-                href="{{ route('menu.index') }}">Cancel</a>
+                href="{{ route('menu') }}">Cancel</a>
             <button type="submit"
-                class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
+                class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 capitalize">{{ isset($menu) ? 'update' : 'save' }}</button>
         </div>
     </form>
 @endsection
@@ -153,6 +174,19 @@
             });
             $("#route").blur(function() {
                 $($(this).siblings()[1]).addClass('hidden');
+            });
+            $("#route").keydown(function() {
+                $(this).siblings().find('div.py-1').find('div').map(function(index, element) {
+                    if (this.value != "") {
+                        if (element.outerText.split($("#route").val()).length <= 2) {
+                            $(element).addClass('hidden');
+                        } else {
+                            $(element).removeClass('hidden');
+                        }
+                    } else {
+                        $(element).removeClass('hidden');
+                    }
+                })
             });
             $('.list-route').hover(function() {
                 $("#route").val($(this).data('route'));

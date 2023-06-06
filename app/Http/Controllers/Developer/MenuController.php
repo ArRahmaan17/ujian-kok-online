@@ -15,7 +15,7 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $menus = Menu::all();
+        $menus = Menu::orderBy('id', 'asc')->get();
 
         return view('pages.developer.menu.index', compact('menus'));
     }
@@ -73,6 +73,16 @@ class MenuController extends Controller
      */
     public function edit(string $id)
     {
+        $menu = Menu::find($id);
+        $results = Route::getRoutes()->getRoutesByName();
+        $routes = [];
+        foreach ($results as $index => $result) {
+            if ('GET' == $result->methods[0] && 'web' == $result->action['middleware'][0] && ('/authentication' != $result->action['prefix'] && 'sanctum' != $result->action['prefix'])) {
+                $routes[] = $result;
+            }
+        }
+
+        return view('pages.developer.menu.create', compact('routes', 'menu'));
     }
 
     /**
@@ -80,6 +90,24 @@ class MenuController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $request->validate([
+            'name' => 'required',
+            'route' => 'required',
+            'position' => 'required',
+        ]);
+        $data = $request->except('_token', '_method');
+        $data['updated_at'] = now('Asia/Jakarta');
+        DB::beginTransaction();
+        try {
+            Menu::where('id', $id)->update($data);
+            DB::commit();
+
+            return redirect()->route('menu');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            return redirect()->back()->with('error', 'failed to update menu');
+        }
     }
 
     /**

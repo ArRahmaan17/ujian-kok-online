@@ -38,8 +38,10 @@ Route::prefix('dashboard')->group(function () {
 // must be a developer user
 Route::prefix('developer')->group(function () {
     Route::prefix('menu')->group(function () {
-        Route::get('/', [MenuController::class, 'index'])->name('menu.index');
+        Route::get('/', [MenuController::class, 'index'])->name('menu');
         Route::get('/create', [MenuController::class, 'create'])->name('menu.create');
         Route::post('/store', [MenuController::class, 'store'])->name('menu.store');
+        Route::get('/{id}/edit', [MenuController::class, 'edit'])->name('menu.edit');
+        Route::put('/{id}/update', [MenuController::class, 'update'])->name('menu.update');
     });
 })->middleware([isDeveloper::class]);

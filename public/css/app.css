@@ -1111,6 +1111,10 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(244 63 94 / var(--tw-bg-opacity));
 }
+.bg-rose-700 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(190 18 60 / var(--tw-bg-opacity));
+}
 .bg-slate-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(241 245 249 / var(--tw-bg-opacity));
@@ -1217,6 +1221,10 @@ select {
   padding-left: 0px;
   padding-right: 0px;
 }
+.px-14 {
+  padding-left: 3.5rem;
+  padding-right: 3.5rem;
+}
 .px-2 {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
@@ -1272,22 +1280,6 @@ select {
 .py-6 {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
-}
-.px-10 {
-  padding-left: 2.5rem;
-  padding-right: 2.5rem;
-}
-.px-12 {
-  padding-left: 3rem;
-  padding-right: 3rem;
-}
-.px-16 {
-  padding-left: 4rem;
-  padding-right: 4rem;
-}
-.px-14 {
-  padding-left: 3.5rem;
-  padding-right: 3.5rem;
 }
 .pb-12 {
   padding-bottom: 3rem;
@@ -1738,8 +1730,16 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(79 70 229 / var(--tw-bg-opacity));
 }
+:is(.dark .dark\:bg-orange-400) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(251 146 60 / var(--tw-bg-opacity));
+}
 :is(.dark .dark\:bg-red-800\/20) {
   background-color: rgb(153 27 27 / 0.2);
+}
+:is(.dark .dark\:bg-rose-400) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(251 113 133 / var(--tw-bg-opacity));
 }
 :is(.dark .dark\:bg-slate-700) {
   --tw-bg-opacity: 1;
@@ -1747,14 +1747,6 @@ select {
 }
 :is(.dark .dark\:bg-transparent) {
   background-color: transparent;
-}
-:is(.dark .dark\:bg-orange-200) {
-  --tw-bg-opacity: 1;
-  background-color: rgb(254 215 170 / var(--tw-bg-opacity));
-}
-:is(.dark .dark\:bg-orange-400) {
-  --tw-bg-opacity: 1;
-  background-color: rgb(251 146 60 / var(--tw-bg-opacity));
 }
 :is(.dark .dark\:bg-gradient-to-bl) {
   background-image: linear-gradient(to bottom left, var(--tw-gradient-stops));
@@ -1824,12 +1816,12 @@ select {
   --tw-shadow-color: #3730a3;
   --tw-shadow: var(--tw-shadow-colored);
 }
-:is(.dark .dark\:shadow-orange-200) {
-  --tw-shadow-color: #fed7aa;
-  --tw-shadow: var(--tw-shadow-colored);
-}
 :is(.dark .dark\:shadow-orange-300) {
   --tw-shadow-color: #fdba74;
+  --tw-shadow: var(--tw-shadow-colored);
+}
+:is(.dark .dark\:shadow-rose-700) {
+  --tw-shadow-color: #be123c;
   --tw-shadow: var(--tw-shadow-colored);
 }
 :is(.dark .dark\:ring-1) {
