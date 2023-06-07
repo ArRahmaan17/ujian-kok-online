@@ -42,6 +42,8 @@ Route::prefix('profile')->group(function () {
         ->name('profile')->middleware([hasPrivileges::class]);
     Route::get('/{id}/edit', [ProfileController::class, 'edit'])
         ->name('profile.edit');
+    Route::put('/{id}/update', [ProfileController::class, 'update'])
+        ->name('profile.update');
 })->middleware([LoggedInCheck::class]);
 
 // must be a developer user

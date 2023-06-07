@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -49,10 +50,26 @@ class User extends Authenticatable
     {
         if (auth()->user()->is_student) {
             return $this->hasOne(Student::class, 'user_id', 'id');
-        } elseif (auth()->user()->is_teacher) {
-            return $this->hasOne(Teacher::class, 'user_id', 'id');
         } else {
             return $this->hasOne(Teacher::class, 'user_id', 'id');
         }
+    }
+
+    public function logs(): HasMany
+    {
+        return $this->hasMany(Log::class, 'user_id', 'id');
+    }
+
+    public static function profile_update(array $updated_profile): bool
+    {
+        $user = auth()->user();
+        self::where('id', $user->id)->update($updated_profile[0]);
+        if ($user->is_teacher) {
+            Teacher::where('user_id', $user->id)->update($updated_profile[1]);
+        } elseif ($user->is_student) {
+            Student::where('user_id', $user->id)->update($updated_profile[1]);
+        }
+
+        return true;
     }
 }
