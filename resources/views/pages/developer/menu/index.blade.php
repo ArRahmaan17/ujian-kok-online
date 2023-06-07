@@ -1,8 +1,8 @@
 @extends('templates.index')
 @section('content')
     <div class="flex flex-col">
-        <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div class="flex flex-row justify-between mb-5 p-3 rounded-t-xl">
+        <div class="overflow-x-auto sm:mx-6 lg:mx-8 mb-10">
+            <div class="flex flex-row justify-between mb-5 p-3 rounded-t-xl ">
                 <div class="basis-10/12">
                     <span class="text-2xl dark:text-white">List Menu</span>
                 </div>
@@ -13,9 +13,9 @@
                 </div>
             </div>
             <div class="grid grid-cols-2 gap-6 p-3">
-                <div class="shadow-xl p-3 rounded-md ">
+                <div class="ring-1 ring-offset-transparent ring-offset-1 ring-slate-400 dark:ring-indigo-400 rounded px-2">
                     <ul role="list" id="navbar"
-                        class="divide-y divide-gray-100 dark:divide-y-0 overflow-auto max-h-[55vh]">
+                        class="divide-y divide-gray-100 dark:divide-indigo-400 overflow-auto max-h-[55vh]">
                         @foreach ($navbarMenu as $menu)
                             <li class="flex justify-between gap-x-6 py-5" data-id={{ $menu->id }}
                                 data-name={{ $menu->name }} data-ordered={{ $menu->ordered }}
@@ -73,9 +73,9 @@
                         @endforeach
                     </ul>
                 </div>
-                <div class="shadow-xl p-3 rounded-md">
+                <div class="ring-1 ring-offset-transparent ring-offset-1 ring-slate-400 dark:ring-indigo-400 rounded px-2">
                     <ul role="list" id="control-menu"
-                        class="divide-y divide-gray-100 dark:divide-y-0 overflow-auto max-h-[55vh]">
+                        class="divide-y divide-gray-100 dark:divide-indigo-400  overflow-auto max-h-[55vh]">
                         @foreach ($controlMenu as $menu)
                             <li class="flex justify-between gap-x-6 py-5" data-id={{ $menu->id }}
                                 data-name={{ $menu->name }} data-ordered={{ $menu->ordered }}
