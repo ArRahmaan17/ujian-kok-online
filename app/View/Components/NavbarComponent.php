@@ -20,8 +20,20 @@ class NavbarComponent extends Component
      */
     public function render(): View|\Closure|string
     {
-        $navbar = DB::table('menus')->where('position', 'navbar')->get();
-        $controlMenu = DB::table('menus')->where('position', 'control-menu')->get();
+        $navbar = DB::table('menus')->where('position', 'navbar');
+        $controlMenu = DB::table('menus')->where('position', 'control-menu');
+        if (auth()->user()->is_developer) {
+            $navbar->where('for_developer', true);
+            $controlMenu->where('for_developer', true);
+        } elseif (auth()->user()->is_teacher) {
+            $navbar->where('for_teacher', true);
+            $controlMenu->where('for_teacher', true);
+        } elseif (auth()->user()->is_student) {
+            $navbar->where('for_student', true);
+            $controlMenu->where('for_student', true);
+        }
+        $controlMenu = $controlMenu->get();
+        $navbar = $navbar->get();
 
         return view('components.navbar-component', compact('navbar', 'controlMenu'));
     }

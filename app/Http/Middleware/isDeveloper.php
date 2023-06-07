@@ -17,6 +17,7 @@ class isDeveloper
         if (auth()->user()->is_developer) {
             return $next($request);
         } else {
+            return redirect()->route('dashboard')->with(['denied' => ['message' => "You Don't Have Permission To Access Developer Page "]]);
         }
     }
 }

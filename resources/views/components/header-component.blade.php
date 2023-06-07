@@ -4,9 +4,8 @@
         <div class="text-3xl font-bold tracking-tight text-white col-span-2 capitalize place-self-start p-2">
             {{ displayRouteName(request()->route()->getname()) }}
         </div>
-        <div class="hidden sm:block text-1xl font-bold tracking-tight text-slate-300 place-self-end">
-            {{-- {{ auth()->user()->homeroom_teacher }} --}}
-            Test Homeroom Teacher
+        <div class="hidden sm:block text-1xl font-bold tracking-tight text-slate-200/60 place-self-end capitalize">
+            {{ auth()->user()->detail_users->full_name ?? 'Developer Mode' }} / {{ auth()->user()->username }}
         </div>
     </div>
 </header>

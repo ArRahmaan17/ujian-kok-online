@@ -12,7 +12,7 @@ return new class() extends Migration {
     {
         Schema::create('teachers', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('full_name');
             $table->integer('teacher_identification_number');
             $table->string('phone_numbers');
             $table->integer('user_id');

@@ -28,11 +28,15 @@ class Menu extends Model
 
     public static function orderMenu(array $orderedMenu)
     {
-        foreach ($orderedMenu as $index => $menu) {
-            $menu['updated_at'] = now('Asia/Jakarta');
-            self::where('id', $menu['id'])->update($menu);
+        if (null != $orderedMenu) {
+            foreach ($orderedMenu as $index => $menu) {
+                $menu['updated_at'] = now('Asia/Jakarta');
+                self::where('id', $menu['id'])->update($menu);
+            }
+
+            return true;
         }
 
-        return true;
+        return false;
     }
 }

@@ -14,13 +14,15 @@
             </div>
             <div class="grid grid-cols-2 gap-6 p-3">
                 <div class="shadow-xl p-3 rounded-md ">
-                    <ul role="list" id="navbar" class="divide-y divide-gray-100 overflow-auto max-h-[55vh]">
+                    <ul role="list" id="navbar"
+                        class="divide-y divide-gray-100 dark:divide-y-0 overflow-auto max-h-[55vh]">
                         @foreach ($navbarMenu as $menu)
                             <li class="flex justify-between gap-x-6 py-5" data-id={{ $menu->id }}
-                                data-name={{ $menu->name }} data-ordered={{ $menu->ordered }}>
+                                data-name={{ $menu->name }} data-ordered={{ $menu->ordered }}
+                                data-position={{ $menu->position }}>
                                 <div class="flex gap-x-4 items-center">
                                     <div
-                                        class="transition-all h-12 w-12 flex-none rounded-full bg-gray-50 dark:bg-indigo-50 scale-95 hover:scale-90 mx-auto text-center py-3">
+                                        class="transition-all h-12 w-12 flex-none rounded-full bg-gray-50 dark:bg-indigo-600 dark:text-white scale-95 hover:dark:ring-2 hover:dark:ring-indigo-400 dark:hover:ring-offset-1 hover:scale-90 mx-auto text-center py-3">
                                         {{ $loop->iteration }}
                                     </div>
                                     <div class="min-w-0 flex-auto">
@@ -59,11 +61,11 @@
                                     </div>
                                 </div>
                                 <div class="hidden xl:flex xl:flex-col xl:items-end">
-                                    <p class="text-sm leading-6 text-gray-900">
+                                    <p class="text-sm leading-6 text-gray-900 dark:text-indigo-400">
                                         {{ $menu->updated_at != null? Carbon\Carbon::parse($menu->updated_at)->add(-7, 'hours')->diffForHumans(): 'Not Updated Yet' }}
                                     </p>
-                                    <p class="mt-1 text-xs leading-5 text-gray-500 capitalize">Created
-                                        {{ Carbon\Carbon::parse($menu->created_at)->add(-7, 'hours')->diffForHumans() }}
+                                    <p class="mt-1 text-xs leading-5 text-gray-500 dark:text-indigo-300 capitalize">Created
+                                        {{ convertDateTimeToDiff($menu->created_at) }}
                                         by {{ $menu->user->username }}
                                     </p>
                                 </div>
@@ -72,13 +74,15 @@
                     </ul>
                 </div>
                 <div class="shadow-xl p-3 rounded-md">
-                    <ul role="list" id="control-menu" class="divide-y divide-gray-100 overflow-auto max-h-[55vh]">
+                    <ul role="list" id="control-menu"
+                        class="divide-y divide-gray-100 dark:divide-y-0 overflow-auto max-h-[55vh]">
                         @foreach ($controlMenu as $menu)
                             <li class="flex justify-between gap-x-6 py-5" data-id={{ $menu->id }}
-                                data-name={{ $menu->name }} data-ordered={{ $menu->ordered }}>
+                                data-name={{ $menu->name }} data-ordered={{ $menu->ordered }}
+                                data-position={{ $menu->position }}>
                                 <div class="flex gap-x-4 items-center">
                                     <div
-                                        class="transition-all h-12 w-12 flex-none rounded-full bg-gray-50 dark:bg-indigo-50 scale-95 hover:scale-90 mx-auto text-center py-3">
+                                        class="transition-all h-12 w-12 flex-none rounded-full bg-gray-50 dark:bg-indigo-600 dark:text-white scale-95 hover:scale-90 mx-auto text-center py-3 hover:dark:ring-2 hover:dark:ring-indigo-400 dark:hover:ring-offset-1">
                                         {{ $loop->iteration }}
                                     </div>
                                     <div class="min-w-0 flex-auto">
@@ -117,11 +121,11 @@
                                     </div>
                                 </div>
                                 <div class="hidden xl:flex xl:flex-col xl:items-end">
-                                    <p class="text-sm leading-6 text-gray-900">
+                                    <p class="text-sm leading-6 text-gray-900 dark:text-indigo-400">
                                         {{ $menu->updated_at != null? Carbon\Carbon::parse($menu->updated_at)->add(-7, 'hours')->diffForHumans(): 'Not Updated Yet' }}
                                     </p>
-                                    <p class="mt-1 text-xs leading-5 text-gray-500 capitalize">Created
-                                        {{ Carbon\Carbon::parse($menu->created_at)->add(-7, 'hours')->diffForHumans() }}
+                                    <p class="mt-1 text-xs leading-5 text-gray-500 dark:text-indigo-300 capitalize">Created
+                                        {{ convertDateTimeToDiff($menu->created_at) }}
                                         by {{ $menu->user->username }}
                                     </p>
                                 </div>
@@ -136,53 +140,62 @@
 @section('script')
     <script src='https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.3/dragula.min.js'></script>
     <script>
-        dragula([document.getElementById('navbar'), document.getElementById('control-menu')])
-            .on('drag', function(el) {
-                el.className = el.className.replace('ex-moved', '');
-            }).on('drop', debounce(function(el) {
-                let navbar = [];
-                let control = [];
-                $("#navbar").find(el.localName).map(function(index, list) {
-                    $(list).find('.transition-all.text-center').html(index + 1);
-                    $(list).data('ordered', index + 1);
-                    navbar.push($(list).data())
-                });
-                $("#control-menu").find(el.localName).map(function(index, list) {
-                    $(list).data('ordered', index + 1);
-                    control.push($(list).data())
-                    $(list).find('.transition-all.text-center').html(index + 1)
-                });
-                orderingMenu(navbar).then(() => {
-                    orderingMenu(control);
-                });
-                el.className += ' ex-moved';
-            }, 1000)).on('over', function(el, container) {
-                container.className += ' ex-over';
-            }).on('out', function(el, container) {
-                container.className = container.className.replace('ex-over', '');
-            });
+        initializeDragulaJs();
 
-        function orderingMenu(data) {
+        function initializeDragulaJs() {
+            dragula([document.getElementById('navbar'), document.getElementById('control-menu')])
+                .on('drag', function(el) {
+                    el.className = el.className.replace('ex-moved', '');
+                }).on('drop', debounce(function(el) {
+                    let navbar = [];
+                    let control = [];
+                    $("#navbar").find(el.localName).map(function(index, list) {
+                        $(list).find('.transition-all.text-center').html(index + 1);
+                        $(list).data('ordered', index + 1);
+                        $(list).data('position', 'navbar');
+                        navbar.push($(list).data())
+                    });
+                    $("#control-menu").find(el.localName).map(function(index, list) {
+                        $(list).data('ordered', index + 1);
+                        $(list).data('position', 'control-menu');
+                        control.push($(list).data())
+                        $(list).find('.transition-all.text-center').html(index + 1)
+                    });
+                    orderingMenu(navbar, control);
+                    el.className += ' ex-moved';
+                }, 1000)).on('over', function(el, container) {
+                    container.className += ' ex-over';
+                }).on('out', function(el, container) {
+                    container.className = container.className.replace('ex-over', '');
+                });
+        }
+
+        function orderingMenu(navbar, control) {
             return new Promise((resolve, reject) => {
                 $.ajax({
                     type: "PUT",
                     url: "{{ route('menu.order') }}",
                     data: {
                         _token: `{{ csrf_token() }}`,
-                        menus: data
+                        navbar: navbar,
+                        control: control,
                     },
                     dataType: "json",
                     success: function({
                         message,
                         data
                     }) {
-                        buildResponseMenu(data)
+                        buildResponseMenu(data);
+                        initializeDragulaJs()
+                        resolve(true);
                     },
                     error: function({
                         message,
                         data
                     }) {
-                        buildResponseMenu(data)
+                        buildResponseMenu(data);
+                        initializeDragulaJs();
+                        reject(true);
                     }
                 });
             });
@@ -203,10 +216,10 @@
         function buildResponseMenu(data) {
             let html = ``;
             data.navbar.forEach((menu, index) => {
-                html += `<li class="flex justify-between gap-x-6 py-5" data-id="${menu.id}" data-name="${menu.name}" data-ordered="${menu.id}">
+                html += `<li class="flex justify-between gap-x-6 py-5" data-id="${menu.id}" data-name="${menu.name}" data-ordered="${menu.ordered}" data-position="${menu.position}">
                     <div class="flex gap-x-4 items-center">
                         <div
-                            class="transition-all h-12 w-12 flex-none rounded-full bg-gray-50 dark:bg-indigo-50 scale-95 hover:scale-90 mx-auto text-center py-3">
+                            class="transition-all h-12 w-12 flex-none rounded-full bg-gray-50 dark:bg-indigo-600 dark:text-white scale-95 hover:scale-90 mx-auto text-center py-3 hover:dark:ring-2 hover:dark:ring-indigo-400 dark:hover:ring-offset-1">
                             ${index+1}
                         </div>
                         <div class="min-w-0 flex-auto">
@@ -233,11 +246,11 @@
                         </div>
                     </div>
                     <div class="hidden xl:flex xl:flex-col xl:items-end">
-                        <p class="text-sm leading-6 text-gray-900">
-                            ${(menu.updated_at != null) ? moment(menu.updated_at).add(-6, 'hours').fromNow(): 'Not Updated Yet' }
+                        <p class="text-sm leading-6 text-gray-900 dark:text-indigo-400">
+                            ${(menu.updated_at != null) ? moment(menu.updated_at).add(-7, 'hours').fromNow(): 'Not Updated Yet' }
                         </p>
-                        <p class="mt-1 text-xs leading-5 text-gray-500 capitalize">Created
-                            ${moment(menu.created_at).add(-6, 'hours').fromNow()}
+                        <p class="mt-1 text-xs leading-5 text-gray-500 capitalize dark:text-indigo-300">Created
+                            ${moment(menu.created_at).add(-7, 'hours').fromNow()} by ${menu.user.username}
                         </p>
                     </div>
                 </li>`;
@@ -245,10 +258,10 @@
             $("#navbar").html(html);
             html = '';
             data.control.forEach((menu, index) => {
-                html += `<li class="flex justify-between gap-x-6 py-5" data-id="${menu.id}" data-name="${menu.name}" data-ordered="${menu.id}">
+                html += `<li class="flex justify-between gap-x-6 py-5" data-id="${menu.id}" data-name="${menu.name}" data-ordered="${menu.ordered}" data-position="${menu.position}">
                     <div class="flex gap-x-4 items-center">
                         <div
-                            class="transition-all h-12 w-12 flex-none rounded-full bg-gray-50 dark:bg-indigo-50 scale-95 hover:scale-90 mx-auto text-center py-3">
+                            class="transition-all h-12 w-12 flex-none rounded-full bg-gray-50 dark:bg-indigo-600 dark:text-white scale-95 hover:scale-90 mx-auto text-center py-3 hover:dark:ring-2 hover:dark:ring-indigo-400 dark:hover:ring-offset-1">
                             ${index+1}
                         </div>
                         <div class="min-w-0 flex-auto">
@@ -275,11 +288,11 @@
                         </div>
                     </div>
                     <div class="hidden xl:flex xl:flex-col xl:items-end">
-                        <p class="text-sm leading-6 text-gray-900">
-                            ${(menu.updated_at != null) ? moment(menu.updated_at, "DD MM YYYY hh:mm:ss").add(7, 'hours').fromNow(): 'Not Updated Yet' }
+                        <p class="text-sm leading-6 text-gray-900 dark:text-indigo-400">
+                            ${(menu.updated_at != null) ? moment(menu.updated_at).add(-7, 'hours').fromNow(): 'Not Updated Yet' }
                         </p>
-                        <p class="mt-1 text-xs leading-5 text-gray-500 capitalize">Created
-                            ${moment(menu.created_at, "DD MM YYYY hh:mm:ss").add(7, 'hours').fromNow()}
+                        <p class="mt-1 text-xs leading-5 text-gray-500 capitalize dark:text-indigo-300">Created
+                            ${moment(menu.created_at).add(-7, 'hours').fromNow()} by ${menu.user.username}
                         </p>
                     </div>
                 </li>`;

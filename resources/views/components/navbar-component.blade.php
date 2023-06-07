@@ -56,9 +56,9 @@
                             role="menu" aria-orientation="vertical" aria-describedby="user-menu-button"
                             aria-labelledby="user-menu-button" tabindex="-1">
                             @forelse ($controlMenu as $menu)
-                                <a href="#"
-                                    class="{{ explode('/', url()->full())[3] == 'profile' ? 'text-indigo-700 dark:text-indigo-400' : 'text-black dark:text-indigo-600 hover:text-indigo-700 hover:dark:text-indigo-400' }} text-sm block px-4 py-2 rounded-t-lg"
-                                    role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
+                                <a href="{{ route($menu->route) }}"
+                                    class="{{ explode('/', url()->full())[count(explode('/', url()->full())) - 1] == Str::lower($menu->name) ? 'text-indigo-700 dark:text-indigo-400' : 'text-black dark:text-indigo-600 hover:text-indigo-700 hover:dark:text-indigo-400' }} text-sm block px-4 py-2 rounded-t-lg"
+                                    role="menuitem" tabindex="-1" id="user-menu-item-0">{{ $menu->name }}</a>
                             @empty
                                 <a href="#"
                                     class="{{ explode('/', url()->full())[3] == 'profile' ? 'text-indigo-700 dark:text-indigo-400' : 'text-black dark:text-indigo-600 hover:text-indigo-700 hover:dark:text-indigo-400' }} text-sm block px-4 py-2 rounded-t-lg"
@@ -134,9 +134,9 @@
             </div>
             <div class="mt-3 space-y-1 px-2">
                 @forelse ($controlMenu as $menu)
-                    <a href="#"
-                        class="{{ explode('/', url()->full())[3] == 'profile' ? 'text-indigo-700 dark:text-indigo-400' : 'text-black dark:text-indigo-600 hover:text-indigo-700 hover:dark:text-indigo-400' }} text-sm block px-4 py-2 rounded-t-lg"
-                        role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
+                    <a href="{{ route($menu->route) }}"
+                        class="{{ explode('/', url()->full())[count(explode('/', url()->full())) - 1] == Str::lower($menu->name) ? 'text-indigo-700 dark:text-indigo-400' : 'text-black dark:text-indigo-600 hover:text-indigo-700 hover:dark:text-indigo-400' }} text-sm block px-4 py-2 rounded-t-lg"
+                        role="menuitem" tabindex="-1" id="user-menu-item-0">{{ $menu->name }}</a>
                 @empty
                     <a href="#"
                         class="{{ explode('/', url()->full())[3] == 'profile' ? 'text-indigo-700 dark:text-indigo-400' : 'text-black dark:text-indigo-600 hover:text-indigo-700 hover:dark:text-indigo-400' }} text-sm block px-4 py-2 rounded-t-lg"

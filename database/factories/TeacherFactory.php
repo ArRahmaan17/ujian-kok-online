@@ -24,7 +24,7 @@ class TeacherFactory extends Factory
         $chosenOne = $teachers->where('id', fake()->shuffleArray($arrayIds))->first()->id;
 
         return [
-            'name' => fake('id_ID')->name(),
+            'full_name' => fake('id_ID')->name(),
             'teacher_identification_number' => fake()->randomNumber(),
             'phone_numbers' => fake('id_ID')->phoneNumber(),
             'user_id' => $chosenOne,

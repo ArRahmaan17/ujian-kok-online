@@ -15,8 +15,9 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $navbarMenu = Menu::where('position', 'navbar')->orderBy('ordered', 'asc')->get();
-        $controlMenu = Menu::where('position', 'control-menu')->orderBy('ordered', 'asc')->get();
+        $navbarMenu = Menu::with('user')->where('position', 'navbar')->orderBy('ordered', 'asc')->get();
+        $controlMenu = Menu::with('user')->where('position', 'control-menu')->orderBy('ordered', 'asc')->get();
+
         return view('pages.developer.menu.index', compact('navbarMenu', 'controlMenu'));
     }
 
@@ -89,19 +90,24 @@ class MenuController extends Controller
 
     public function order(Request $request)
     {
-        $menus = $request->menus;
         DB::beginTransaction();
         try {
-            Menu::orderMenu($menus);
+            if (null != $request->navbar) {
+                Menu::orderMenu($request->navbar);
+            }
+            if (null != $request->control) {
+                Menu::orderMenu($request->control);
+            }
             DB::commit();
-            $navbarMenu = Menu::where('position', 'navbar')->orderBy('ordered', 'asc')->get();
-            $controlMenu = Menu::where('position', 'control-menu')->orderBy('ordered', 'asc')->get();
+            $navbarMenu = Menu::with('user')->where('position', 'navbar')->orderBy('ordered', 'asc')->get();
+            $controlMenu = Menu::with('user')->where('position', 'control-menu')->orderBy('ordered', 'asc')->get();
             $response = ['message' => 'successfully ordering menu', 'data' => ['navbar' => $navbarMenu, 'control' => $controlMenu]];
             $status = 200;
         } catch (\Throwable $th) {
             DB::rollBack();
-            $navbarMenu = Menu::where('position', 'navbar')->orderBy('ordered', 'asc')->get();
-            $controlMenu = Menu::where('position', 'control-menu')->orderBy('ordered', 'asc')->get();
+            dd($th);
+            $navbarMenu = Menu::with('user')->where('position', 'navbar')->orderBy('ordered', 'asc')->get();
+            $controlMenu = Menu::with('user')->where('position', 'control-menu')->orderBy('ordered', 'asc')->get();
             $status = 400;
             $response = ['message' => 'ordering menu has been failed', 'data' => ['navbar' => $navbarMenu, 'control' => $controlMenu]];
         }

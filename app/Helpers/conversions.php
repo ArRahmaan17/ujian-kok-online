@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Carbon;
+
 if (!function_exists('displayRouteName')) {
     function displayRouteName(string $routeName)
     {
@@ -14,4 +16,9 @@ if (!function_exists('displayRouteName')) {
             return $explodeRouteName[0];
         }
     }
+}
+
+function convertDateTimeToDiff(string $date): string
+{
+    return Carbon::parse($date)->add(-7, 'hours')->diffForHumans();
 }
