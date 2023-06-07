@@ -15,6 +15,9 @@ class hasPrivileges
      */
     public function handle(Request $request, \Closure $next): Response
     {
+        if (null == auth()->user()) {
+            return redirect()->route('authentication.index');
+        }
         $route = $request->route()->getName();
         $state = DB::table('menus')->where('route', $route);
         $result = 0;

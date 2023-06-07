@@ -3,7 +3,6 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class LoggedInCheck
@@ -15,7 +14,7 @@ class LoggedInCheck
      */
     public function handle(Request $request, \Closure $next): Response
     {
-        if (!Auth::check()) {
+        if (null == auth()->user()) {
             return redirect()->route('authentication.index');
         } else {
             return $next($request);

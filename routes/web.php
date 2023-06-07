@@ -3,6 +3,7 @@
 use App\Http\Controllers\Authentication\LoginController;
 use App\Http\Controllers\Developer\MenuController;
 use App\Http\Controllers\Student\DashboardController;
+use App\Http\Controllers\Student\ProfileController;
 use App\Http\Middleware\hasPrivileges;
 use App\Http\Middleware\isDeveloper;
 use App\Http\Middleware\LoggedInCheck;
@@ -20,21 +21,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::middleware([NotLogged::class])->get('/', function () {
     return redirect()->route('authentication.index');
-})->middleware([NotLogged::class]);
+});
 Route::get('/authentication/logout', [LoginController::class, 'logout'])->name('authentication.logout')->middleware([LoggedInCheck::class]);
 // must be not login on application
-Route::prefix('authentication')->group(function () {
+Route::prefix('authentication')->middleware([NotLogged::class])->group(function () {
     Route::get('/login', [LoginController::class, 'index'])
         ->name('authentication.index');
     Route::post('/login', [LoginController::class, 'login'])
         ->name('authentication.login');
-})->middleware([NotLogged::class]);
+});
 // must be login on application
 Route::prefix('dashboard')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])
         ->name('dashboard')->middleware([hasPrivileges::class]);
+})->middleware([LoggedInCheck::class]);
+Route::prefix('profile')->group(function () {
+    Route::get('/', [ProfileController::class, 'index'])
+        ->name('profile')->middleware([hasPrivileges::class]);
+    Route::get('/{id}/edit', [ProfileController::class, 'edit'])
+        ->name('profile.edit');
 })->middleware([LoggedInCheck::class]);
 
 // must be a developer user
