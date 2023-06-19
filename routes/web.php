@@ -40,6 +40,9 @@ Route::prefix('dashboard')->group(function () {
 Route::prefix('profile')->group(function () {
     Route::get('/', [ProfileController::class, 'index'])
         ->name('profile')->middleware([hasPrivileges::class]);
+    Route::get('/{username}/request-change-password', function ($username) {
+        return view('pages.wait', compact('username'));
+    });
     Route::get('/{id}/edit', [ProfileController::class, 'edit'])
         ->name('profile.edit');
     Route::put('/{id}/update', [ProfileController::class, 'update'])

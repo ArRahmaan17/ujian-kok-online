@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full dark" xmlns:aria="http://www.w3.org/1999/xhtml">
+<html lang="en" class="h-full" xmlns:aria="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
@@ -9,8 +9,32 @@
     <title>{{ env('APP_NAME') }}</title>
 </head>
 
-<body {{-- class="h-full transition duration-150 ease-out bg-gradient-to-b from-slate-300 to-gray-800 dark:bg-gradient-to-t "> --}} class="h-full transition duration-1000 ease-in-out bg-slate-300 dark:bg-slate-700 ">
+<body class="max-h-full transition duration-150 ease-in-out bg-white dark:bg-black ">
     @yield('content')
 </body>
+<script src="{{ asset('js/jquery.min.js') }}"></script>
+<script>
+    function proccessChangeTheme(key) {
+        if (key == 'dark') {
+            $('html').addClass('dark')
+            localStorage.setItem('theme', 'dark');
+        } else {
+            $('html').removeClass('dark')
+            localStorage.setItem('theme', 'light');
+        }
+    }
+
+    function loadTheme() {
+        if (localStorage.getItem('theme') == 'light') {
+            proccessChangeTheme(localStorage.getItem('theme'));
+        } else {
+            proccessChangeTheme(localStorage.getItem('theme'));
+        }
+    }
+
+    $(document).ready(function() {
+        loadTheme();
+    });
+</script>
 
 </html>
