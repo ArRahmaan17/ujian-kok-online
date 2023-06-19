@@ -95,7 +95,7 @@
         </div>
         <div class="basis-1/2 px-3 min-h-[40vh] max-h-[40vh] overflow-y-auto">
             <div
-                class="sticky top-0 text-center bg-slate-500 dark:bg-indigo-500 p-5 mb-3 rounded-md bg-opacity-25 dark:bg-opacity-25 dark:text-white">
+                class="sticky top-0 text-center bg-slate-500 dark:bg-indigo-300 p-5 mb-3 rounded-md bg-opacity-25 dark:bg-opacity-25 dark:text-white">
                 Your Logs
             </div>
             @forelse ($user->logs as $log)
