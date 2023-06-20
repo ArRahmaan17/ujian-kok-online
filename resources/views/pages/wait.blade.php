@@ -85,9 +85,12 @@
             <ellipse cx="556.1612" cy="472.39114" rx="12.17949" ry="47.5"
                 transform="translate(-275.75171 306.36236) rotate(-32.66242)" fill="#3f3d56" />
         </svg>
-        <p class="dark:font-bold dark:text-indigo-400 capitalize text-center mt-7 text-xl dark:text-2xl">Hiiii,
+        <p class="dark:font-bold text-indigo-400 dark:text-slate-500 capitalize text-center mt-7 text-xl dark:text-2xl">
+            Hiiii,
             {{ $username }}</p>
-        <p class="dark:font-bold dark:text-indigo-500 capitalize text-center mt-2 text-sm dark:text-1xl">please wait for
+        <p class="dark:font-bold text-indigo-500 dark:text-slate-500 capitalize text-center mt-2 text-sm dark:text-1xl">
+            please
+            wait for
             your
             teacher to approve the request</p>
         <div class="text-center mt-3">

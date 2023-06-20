@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Authentication\LoginController;
+use App\Http\Controllers\Developer\Approve;
 use App\Http\Controllers\Developer\MenuController;
 use App\Http\Controllers\Student\DashboardController;
 use App\Http\Controllers\Student\ProfileController;
@@ -37,17 +38,15 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])
         ->name('dashboard')->middleware([hasPrivileges::class]);
 })->middleware([LoggedInCheck::class]);
-Route::prefix('profile')->group(function () {
+Route::middleware([LoggedInCheck::class])->prefix('profile')->group(function () {
     Route::get('/', [ProfileController::class, 'index'])
         ->name('profile')->middleware([hasPrivileges::class]);
-    Route::get('/{username}/request-change-password', function ($username) {
-        return view('pages.wait', compact('username'));
-    });
+    Route::get('/{username}/request-change-password', [ProfileController::class, 'requestChangePassword']);
     Route::get('/{id}/edit', [ProfileController::class, 'edit'])
         ->name('profile.edit');
     Route::put('/{id}/update', [ProfileController::class, 'update'])
         ->name('profile.update');
-})->middleware([LoggedInCheck::class]);
+});
 
 // must be a developer user
 Route::prefix('developer')->group(function () {
@@ -58,5 +57,8 @@ Route::prefix('developer')->group(function () {
         Route::get('/{id}/edit', [MenuController::class, 'edit'])->name('menu.edit');
         Route::put('/{id}/update', [MenuController::class, 'update'])->name('menu.update');
         Route::put('/order', [MenuController::class, 'order'])->name('menu.order');
+    });
+    Route::middleware([LoggedInCheck::class])->prefix('approve')->group(function () {
+        Route::get('/change-password', [Approve::class, 'changePassword'])->name('approve.change-password')->middleware([hasPrivileges::class]);;
     });
 })->middleware([isDeveloper::class]);

@@ -14,7 +14,7 @@
                         {{-- navbar md >  --}}
                         @foreach ($navbar as $menu)
                             <a href="{{ route($menu->route) }}"
-                                class="{{ explode('/', url()->full())[count(explode('/', url()->full())) - 1] == Str::lower($menu->name) ? 'bg-slate-600 dark:bg-indigo-600 text-white' : 'text-dark hover:bg-slate-400 hover:text-white dark:text-indigo-600 dark:hover:bg-indigo-300' }} block rounded-md px-3 py-2 text-base font-medium">{{ $menu->name }}</a>
+                                class="{{ Str::replace('-', ' ', explode('/', url()->full())[count(explode('/', url()->full())) - 1]) == Str::lower($menu->name) ? 'bg-slate-600 dark:bg-indigo-600 text-white' : 'text-dark hover:bg-slate-400 hover:text-white dark:text-indigo-600 dark:hover:bg-indigo-300' }} block rounded-md px-3 py-2 text-base font-medium">{{ $menu->name }}</a>
                         @endforeach
                     </div>
                 </div>
@@ -57,7 +57,7 @@
                             aria-labelledby="user-menu-button" tabindex="-1">
                             @forelse ($controlMenu as $menu)
                                 <a href="{{ route($menu->route) }}"
-                                    class="{{ explode('/', url()->full())[count(explode('/', url()->full())) - 1] == Str::lower($menu->name) ? 'text-indigo-700 dark:text-indigo-400' : 'text-black dark:text-indigo-600 hover:text-indigo-700 hover:dark:text-indigo-400' }} text-sm block px-4 py-2 rounded-t-lg"
+                                    class="{{ Str::replace('-', ' ', explode('/', url()->full())[count(explode('/', url()->full())) - 1]) == Str::lower($menu->name) ? 'text-indigo-700 dark:text-indigo-400' : 'text-black dark:text-indigo-600 hover:text-indigo-700 hover:dark:text-indigo-400' }} text-sm block px-4 py-2 rounded-t-lg"
                                     role="menuitem" tabindex="-1" id="user-menu-item-0">{{ $menu->name }}</a>
                             @empty
                                 <a href="#"
@@ -101,7 +101,7 @@
         <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
             @foreach ($navbar as $menu)
                 <a href="{{ route($menu->route) }}"
-                    class="{{ explode('/', url()->full())[count(explode('/', url()->full())) - 1] == Str::lower($menu->name) ? 'bg-slate-600 dark:bg-indigo-600 text-white' : 'text-dark hover:bg-slate-400 hover:text-white dark:text-indigo-600 dark:hover:bg-indigo-300' }} block rounded-md px-3 py-2 text-base font-medium">{{ $menu->name }}</a>
+                    class="{{ Str::replace('-', ' ', explode('/', url()->full())[count(explode('/', url()->full())) - 1]) == Str::lower($menu->name) ? 'bg-slate-600 dark:bg-indigo-600 text-white' : 'text-dark hover:bg-slate-400 hover:text-white dark:text-indigo-600 dark:hover:bg-indigo-300' }} block rounded-md px-3 py-2 text-base font-medium">{{ $menu->name }}</a>
             @endforeach
         </div>
         <div class="border-t border-gray-700 pb-3 pt-4">
@@ -135,8 +135,8 @@
             <div class="mt-3 space-y-1 px-2">
                 @forelse ($controlMenu as $menu)
                     <a href="{{ route($menu->route) }}"
-                        class="{{ explode('/', url()->full())[count(explode('/', url()->full())) - 1] == Str::lower($menu->name) ? 'text-indigo-700 dark:text-indigo-400' : 'text-black dark:text-indigo-600 hover:text-indigo-700 hover:dark:text-indigo-400' }} text-sm block px-4 py-2 rounded-t-lg"
-                        role="menuitem" tabindex="-1" id="user-menu-item-0">{{ $menu->name }}</a>
+                        class="{{ Str::replace('-', ' ', explode('/', url()->full())[count(explode('/', url()->full())) - 1]) == Str::lower($menu->name) ? 'text-indigo-700 dark:text-indigo-400' : 'text-black dark:text-indigo-600 hover:text-indigo-700 hover:dark:text-indigo-400' }} text-sm block px-4 py-2 rounded-t-lg"
+                        role="menuitem" tabindex="-1" id="user-menu-item-0">{{ Str::lower($menu->name) }}</a>
                 @empty
                     <a href="#"
                         class="{{ explode('/', url()->full())[3] == 'profile' ? 'text-indigo-700 dark:text-indigo-400' : 'text-black dark:text-indigo-600 hover:text-indigo-700 hover:dark:text-indigo-400' }} text-sm block px-4 py-2 rounded-t-lg"

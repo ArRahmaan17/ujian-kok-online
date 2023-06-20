@@ -72,4 +72,9 @@ class User extends Authenticatable
 
         return true;
     }
+
+    static function getUserByUsername(string $username)
+    {
+        return self::where('username', $username)->limit(1)->first();
+    }
 }

@@ -9,7 +9,7 @@
     <title>{{ env('APP_NAME') }}</title>
 </head>
 
-<body class="max-h-full transition duration-150 ease-in-out bg-white dark:bg-black ">
+<body class="min-h-full transition duration-150 ease-in-out bg-slate-800 dark:bg-slate-300 ">
     @yield('content')
 </body>
 <script src="{{ asset('js/jquery.min.js') }}"></script>

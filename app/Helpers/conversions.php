@@ -1,6 +1,7 @@
 <?php
 
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 if (!function_exists('displayRouteName')) {
     function displayRouteName(string $routeName)
@@ -10,7 +11,7 @@ if (!function_exists('displayRouteName')) {
             if ('index' == $explodeRouteName[1]) {
                 return $explodeRouteName[0];
             } else {
-                return $explodeRouteName[1] . ' ' . $explodeRouteName[0];
+                return Str::replace('-', ' ', $explodeRouteName[1]) . ' ' . $explodeRouteName[0];
             }
         } else {
             return $explodeRouteName[0];
