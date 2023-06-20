@@ -58,7 +58,9 @@ Route::prefix('developer')->group(function () {
         Route::put('/{id}/update', [MenuController::class, 'update'])->name('menu.update');
         Route::put('/order', [MenuController::class, 'order'])->name('menu.order');
     });
-    Route::middleware([LoggedInCheck::class])->prefix('approve')->group(function () {
-        Route::get('/change-password', [Approve::class, 'changePassword'])->name('approve.change-password')->middleware([hasPrivileges::class]);;
+    Route::middleware([LoggedInCheck::class])->prefix('support')->group(function () {
+        Route::get('/replace-password', [Approve::class, 'password'])->name('support.replace-password')->middleware([hasPrivileges::class]);
+        Route::get('/replace-password/{id}/reset', [Approve::class, 'processResetPassword'])->name('support.accept-reset-password');
+        Route::get('/replace-password/{id}/change', [Approve::class, 'processChangePassword'])->name('support.accept-change-password');
     });
 })->middleware([isDeveloper::class]);

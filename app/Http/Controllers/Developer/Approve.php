@@ -8,8 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class Approve extends Controller
 {
-    //
-    public function changePassword()
+    public function password()
     {
         $usersRequested = DB::table('request_change_password')->where('approved', false)->get();
         return view('pages.developer.approve.changePassword.index', compact('usersRequested'));

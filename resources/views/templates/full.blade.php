@@ -14,7 +14,7 @@
 </body>
 <script src="{{ asset('js/jquery.min.js') }}"></script>
 <script>
-    function proccessChangeTheme(key) {
+    function processChangeTheme(key) {
         if (key == 'dark') {
             $('html').addClass('dark')
             localStorage.setItem('theme', 'dark');
@@ -26,9 +26,9 @@
 
     function loadTheme() {
         if (localStorage.getItem('theme') == 'light') {
-            proccessChangeTheme(localStorage.getItem('theme'));
+            processChangeTheme(localStorage.getItem('theme'));
         } else {
-            proccessChangeTheme(localStorage.getItem('theme'));
+            processChangeTheme(localStorage.getItem('theme'));
         }
     }
 

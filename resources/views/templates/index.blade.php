@@ -63,7 +63,7 @@
         });
     }
 
-    function proccessChangeTheme(key) {
+    function processChangeTheme(key) {
         if (key == 'dark') {
             $('html').addClass('dark')
             localStorage.setItem('theme', 'dark');
@@ -77,9 +77,9 @@
 
     function loadTheme() {
         if (localStorage.getItem('theme') == 'light') {
-            proccessChangeTheme(localStorage.getItem('theme'));
+            processChangeTheme(localStorage.getItem('theme'));
         } else {
-            proccessChangeTheme(localStorage.getItem('theme'));
+            processChangeTheme(localStorage.getItem('theme'));
         }
     }
     $(document).ready(function() {
@@ -164,9 +164,9 @@
         toggleElement('dropdown-navbar', 'absolute');
         $(`button[aria-data=change-theme`).click(function() {
             if (!$('html').hasClass('dark')) {
-                proccessChangeTheme('dark')
+                processChangeTheme('dark')
             } else {
-                proccessChangeTheme('light')
+                processChangeTheme('light')
             }
         });
     });

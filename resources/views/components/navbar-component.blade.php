@@ -136,7 +136,7 @@
                 @forelse ($controlMenu as $menu)
                     <a href="{{ route($menu->route) }}"
                         class="{{ Str::replace('-', ' ', explode('/', url()->full())[count(explode('/', url()->full())) - 1]) == Str::lower($menu->name) ? 'text-indigo-700 dark:text-indigo-400' : 'text-black dark:text-indigo-600 hover:text-indigo-700 hover:dark:text-indigo-400' }} text-sm block px-4 py-2 rounded-t-lg"
-                        role="menuitem" tabindex="-1" id="user-menu-item-0">{{ Str::lower($menu->name) }}</a>
+                        role="menuitem" tabindex="-1" id="user-menu-item-0">{{ $menu->name }}</a>
                 @empty
                     <a href="#"
                         class="{{ explode('/', url()->full())[3] == 'profile' ? 'text-indigo-700 dark:text-indigo-400' : 'text-black dark:text-indigo-600 hover:text-indigo-700 hover:dark:text-indigo-400' }} text-sm block px-4 py-2 rounded-t-lg"

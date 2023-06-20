@@ -141,7 +141,7 @@
                     function() {
                         alertify.prompt("What's Your Reason", 'Your Reasone', '', function(evt,
                             value) {
-                            alertify.success('Proccessing Your Request');
+                            alertify.success('Processing Your Request');
                             setTimeout(() => {
                                 window.location.href =
                                     `/profile/{{ auth()->user()->username }}/request-change-password?reason=${value}`;
