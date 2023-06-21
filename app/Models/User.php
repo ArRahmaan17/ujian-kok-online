@@ -22,9 +22,11 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
+        'username',
         'password',
+        'is_teacher',
+        'is_student',
+        'is_developer',
     ];
 
     /**
@@ -34,16 +36,6 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
     ];
 
     public function detail_users(): HasOne
@@ -58,6 +50,10 @@ class User extends Authenticatable
     public function logs(): HasMany
     {
         return $this->hasMany(Log::class, 'user_id', 'id');
+    }
+    public function requested_user(): HasOne
+    {
+        return $this->hasOne(RequestChangePassword::class, 'user_id', 'id');
     }
 
     public static function profile_update(array $updated_profile): bool

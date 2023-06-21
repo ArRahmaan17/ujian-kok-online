@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
 use App\Models\Log;
+use App\Models\RequestChangePassword;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -12,8 +13,8 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        $user = User::with('detail_users')->find(auth()->user()->id);
-
+        $user = User::with('detail_users')->with('requested_user')->find(auth()->user()->id);
+        // dd($user);
         return view('pages.profile.index', compact('user'));
     }
 
@@ -56,15 +57,16 @@ class ProfileController extends Controller
     public function requestChangePassword($username, Request $request)
     {
         $user = User::getUserByUsername($username);
-        if (collect($user)->isNotEmpty() && DB::table('request_change_password')->where('username', $user->username)->count() == 0) {
-            DB::table('request_change_password')->insert([
+        if (collect($user)->isNotEmpty() && RequestChangePassword::where('username', $user->username)->where('approved', false)->count() == 0) {
+            RequestChangePassword::where('username', $user->username)->where('approved', true)->delete();
+            RequestChangePassword::insert([
                 'username' => $user->username,
                 'user_id' => $user->id,
                 'reason' => $request->reason ?? 'did not include reasons',
                 'created_at' => now('Asia/Jakarta'),
             ]);
             Log::insert(['name' => 'action request change password', 'type' => 'success', 'user_id' => $user->id, 'description' => $user->username . ' requesting to change user password', 'created_at' => now('Asia/Jakarta')]);
-        } else if (collect($user)->isNotEmpty() && DB::table('request_change_password')->where('username', $user->username)->count() == 1) {
+        } else if (collect($user)->isNotEmpty() && RequestChangePassword::where('username', $user->username)->where('approved', false)->count() == 1) {
             Log::insert(['name' => 'action request change password', 'type' => 'success', 'user_id' => $user->id, 'description' => $user->username . ' requesting to change user password', 'created_at' => now('Asia/Jakarta')]);
         } else {
             return redirect()->route('profile')->with(['message' => 'Your Request Canceled! Because Username ' . $username . ' is Invalid', 'type' => 'error']);

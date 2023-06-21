@@ -11,7 +11,7 @@ return new class() extends Migration
      */
     public function up(): void
     {
-        Schema::create('request_change_password', function (Blueprint $table) {
+        Schema::create('request_change_passwords', function (Blueprint $table) {
             $table->string('username')->primary();
             $table->integer('user_id');
             $table->foreign('user_id')
@@ -37,6 +37,6 @@ return new class() extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('request_change_password');
+        Schema::dropIfExists('request_change_passwords');
     }
 };

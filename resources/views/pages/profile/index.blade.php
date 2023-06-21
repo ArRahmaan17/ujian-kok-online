@@ -95,9 +95,13 @@
                     class="inline-block mt-1 rounded bg-orange-500 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#e4a11b] transition duration-150 ease-in-out hover:bg-orange-600 hover:shadow-[0_8px_9px_-4px_rgba(228,161,27,0.3),0_4px_18px_0_rgba(228,161,27,0.2)] focus:bg-orange-600 focus:shadow-[0_8px_9px_-4px_rgba(228,161,27,0.3),0_4px_18px_0_rgba(228,161,27,0.2)] focus:outline-none focus:ring-0 active:bg-orange-700 active:shadow-[0_8px_9px_-4px_rgba(228,161,27,0.3),0_4px_18px_0_rgba(228,161,27,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(228,161,27,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(228,161,27,0.2),0_4px_18px_0_rgba(228,161,27,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(228,161,27,0.2),0_4px_18px_0_rgba(228,161,27,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(228,161,27,0.2),0_4px_18px_0_rgba(228,161,27,0.1)]">
                     Edit
                 </a>
-                <button type="button" id="change-password"
+                <button type="button" id="request-change-password"
                     class="inline-block mt-1 rounded bg-rose-500 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#dc4c64] transition duration-150 ease-in-out hover:bg-rose-600 hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:bg-rose-600 focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:outline-none focus:ring-0 active:bg-danger-700 active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(220,76,100,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)]">
                     Request Change Password
+                </button>
+                <button id="change-password" @if ($user->requested_user == null || !$user->requested_user->approved) disabled @endif type="button"
+                    class="inline-block mt-1 rounded {{ isset($user->requested_user->approved) && $user->requested_user->approved ? 'bg-green-500' : 'bg-green-300' }} px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-green-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-green-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]">
+                    {{ isset($user->requested_user->approved) && $user->requested_user->approved ? 'Change Password' : 'Waiting For Approval' }}
                 </button>
             </div>
         </div>
@@ -122,7 +126,7 @@
                             <div class="text-sm opacity-60">{{ $log->description }}</div>
                         </div>
                     </div>
-                    <div class="text-sm">
+                    <div class="block text-sm md:hidden xl:block text-end">
                         {{ convertDateTimeToDiff($log->created_at) }}
                     </div>
                 </div>
@@ -130,22 +134,83 @@
             @endforelse
         </div>
     </div>
+    <div id="modal-change-password" class="relative z-0" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="hidden inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+        <div class="hidden inset-0 z-10 overflow-y-auto">
+            <div class="flex min-h-full items-end md:items-center justify-center p-4 text-center sm:items-center sm:p-0">
+                <div
+                    class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                    <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                        <div class="sm:flex sm:items-start">
+                            <div
+                                class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                                <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                    stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                                </svg>
+                            </div>
+                            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Deactivate
+                                    account</h3>
+                                <div class="mt-2">
+                                    <p class="text-sm text-gray-500">Are you sure you want to deactivate your account? All
+                                        of your data will be permanently removed. This action cannot be undone.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                        <button type="button"
+                            class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Deactivate</button>
+                        <button type="button"
+                            class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto close-modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @section('script')
     <script>
         $(document).ready(function() {
-            $('#change-password').click(function(e) {
+            $("#change-password").click(function() {
+                $("#modal-change-password").find('div.hidden:first')
+                    .addClass('fixed').removeClass('hidden');
+                $("#modal-change-password").find('div.hidden:last').addClass(
+                    'fixed').removeClass('hidden');
+            });
+            $('.close-modal').click(function() {
+                $("#modal-change-password").find('div.fixed:first')
+                    .addClass('hidden').removeClass('fixed');
+                $("#modal-change-password").find('div.fixed:last')
+                    .addClass('hidden').removeClass('fixed');
+            });
+            $('#request-change-password').click(function(e) {
                 alertify.confirm('Change Password Request',
                     'are you sure you want to change your password?',
                     function() {
                         alertify.prompt("What's Your Reason", 'Your Reasone', '', function(evt,
                             value) {
                             alertify.success('Processing Your Request');
+                            var duration = 2;
+                            var msg = alertify.warning('Redirect To Process Page in ' +
+                                duration +
+                                ' seconds.', 2,
+                                function() {
+                                    clearInterval(interval);
+                                });
+                            var interval = setInterval(function() {
+                                msg.setContent('Redirect To Process Page in ' + (--
+                                        duration) +
+                                    ' seconds.');
+                            }, 1000);
                             setTimeout(() => {
                                 window.location.href =
                                     `/profile/{{ auth()->user()->username }}/request-change-password?reason=${value}`;
-                            }, 1500);
+                            }, 2000);
                         }, function() {
                             alertify.error('Cancelling Your Request');
                         });

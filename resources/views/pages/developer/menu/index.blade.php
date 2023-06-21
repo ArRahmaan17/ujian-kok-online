@@ -3,16 +3,16 @@
     <div class="flex flex-col">
         <div class="overflow-x-auto sm:mx-6 lg:mx-8 mb-10">
             <div class="flex flex-row justify-between mb-5 p-3 rounded-t-xl ">
-                <div class="basis-10/12">
+                <div class="basis-3/4 xl:basis-10/12">
                     <span class="text-2xl dark:text-white">List Menu</span>
                 </div>
-                <div class="basis-1/12">
+                <div class="basis-3/12 xl:basis-1/12">
                     <a href="{{ route('menu.create') }}"
                         class="block p-2 bg-black text-white dark:bg-indigo-600 text-xs text-center rounded-md shadow-lg dark:shadow-indigo-700">New
                         Menu</a>
                 </div>
             </div>
-            <div class="grid grid-cols-2 gap-6 p-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 p-3">
                 <div class="ring-1 ring-offset-transparent ring-offset-1 ring-slate-400 dark:ring-indigo-400 rounded px-2">
                     <ul role="list" id="navbar"
                         class="divide-y divide-gray-100 dark:divide-indigo-400 overflow-auto max-h-[55vh]">

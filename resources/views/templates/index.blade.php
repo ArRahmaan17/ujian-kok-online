@@ -30,7 +30,7 @@
     </style>
 </head>
 
-<body class="min-h-full transition duration-150 ease-in-out bg-white dark:bg-black">
+<body class="min-h-full transition duration-150 ease-in-out bg-white dark:bg-black font-sans">
     <div class="min-h-full">
         <x-navbar-component />
         <x-header-component />
