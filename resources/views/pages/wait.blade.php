@@ -1,7 +1,7 @@
 @extends('templates.full')
 @section('content')
     <div class="mt-24 mx-auto ">
-        <svg class="w-48 sm:w-1/4 xl:w-2/6 md:h-auto md:rounded-none rounded-full mx-auto" xmlns="http://www.w3.org/2000/svg"
+        <svg class="w-48 sm:w-1/4 xl:w-2/6 md:h-auto md:rounded-none rounded-full mx-auto " xmlns="http://www.w3.org/2000/svg"
             data-name="Layer 1" width="982.48732" height="763.01413" viewBox="0 0 982.48732 763.01413"
             xmlns:xlink="http://www.w3.org/1999/xlink">
             <circle cx="559.4329" cy="333.06116" r="40.02979" fill="#e6e6e6" />
