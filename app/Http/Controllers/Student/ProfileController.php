@@ -8,14 +8,40 @@ use App\Models\RequestChangePassword;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
     public function index()
     {
         $user = User::with('detail_users')->with('requested_user')->find(auth()->user()->id);
-        // dd($user);
+
         return view('pages.profile.index', compact('user'));
+    }
+
+    public function changePassword(Request $request, $id)
+    {
+        $request->validate(['new-password' => 'required', 'confirm-password' => 'required|same:new-password']);
+        if (intval($id) == auth()->user()->id) {
+            DB::beginTransaction();
+            try {
+                $changedData = [
+                    'id' => $id,
+                    'password' => Hash::make($request['new-password']),
+                ];
+                User::updatePassword($changedData);
+                Log::insert(['name' => 'action change password', 'type' => 'success', 'user_id' => auth()->user()->id, 'description' => auth()->user()->username . ' has been changed their password', 'created_at' => now('Asia/Jakarta')]);
+                RequestChangePassword::where('user_id', $id)->update(['changed' => true]);
+                DB::commit();
+                auth()->logout();
+            } catch (\Throwable $th) {
+                DB::rollBack();
+
+                return Redirect()->back()->with(['type' => 'error', 'message' => 'Unexpected error on process your password changing']);
+            }
+        } else {
+            return Redirect()->back()->with(['type' => 'error', 'message' => "You can't change password other user"]);
+        }
     }
 
     public function edit()
@@ -54,10 +80,11 @@ class ProfileController extends Controller
             return redirect()->route('profile.edit', auth()->user()->id)->with(['message' => 'Failed to update your profile', 'type' => 'error']);
         }
     }
+
     public function requestChangePassword($username, Request $request)
     {
         $user = User::getUserByUsername($username);
-        if (collect($user)->isNotEmpty() && RequestChangePassword::where('username', $user->username)->where('approved', false)->count() == 0) {
+        if (collect($user)->isNotEmpty() && 0 == RequestChangePassword::where('username', $user->username)->where('approved', false)->count()) {
             RequestChangePassword::where('username', $user->username)->where('approved', true)->delete();
             RequestChangePassword::insert([
                 'username' => $user->username,
@@ -66,11 +93,12 @@ class ProfileController extends Controller
                 'created_at' => now('Asia/Jakarta'),
             ]);
             Log::insert(['name' => 'action request change password', 'type' => 'success', 'user_id' => $user->id, 'description' => $user->username . ' requesting to change user password', 'created_at' => now('Asia/Jakarta')]);
-        } else if (collect($user)->isNotEmpty() && RequestChangePassword::where('username', $user->username)->where('approved', false)->count() == 1) {
+        } elseif (collect($user)->isNotEmpty() && 1 == RequestChangePassword::where('username', $user->username)->where('approved', false)->count()) {
             Log::insert(['name' => 'action request change password', 'type' => 'success', 'user_id' => $user->id, 'description' => $user->username . ' requesting to change user password', 'created_at' => now('Asia/Jakarta')]);
         } else {
             return redirect()->route('profile')->with(['message' => 'Your Request Canceled! Because Username ' . $username . ' is Invalid', 'type' => 'error']);
         }
+
         return view('pages.wait', compact('username'));
     }
 }

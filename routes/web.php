@@ -46,6 +46,8 @@ Route::middleware([LoggedInCheck::class])->prefix('profile')->group(function () 
         ->name('profile.edit');
     Route::put('/{id}/update', [ProfileController::class, 'update'])
         ->name('profile.update');
+    Route::put('/{id}/change-password', [ProfileController::class, 'changePassword'])
+        ->name('profile.change-password');
 });
 
 // must be a developer user
@@ -60,7 +62,7 @@ Route::prefix('developer')->group(function () {
     });
     Route::middleware([LoggedInCheck::class])->prefix('support')->group(function () {
         Route::get('/replace-password', [Approve::class, 'password'])->name('support.replace-password')->middleware([hasPrivileges::class]);
-        Route::get('/replace-password/{id}/reset', [Approve::class, 'processResetPassword'])->name('support.accept-reset-password');
+        // Route::get('/replace-password/{id}/reset', [Approve::class, 'processResetPassword'])->name('support.accept-reset-password');
         Route::get('/replace-password/{id}/change', [Approve::class, 'processChangePassword'])->name('support.accept-change-password');
     });
 })->middleware([isDeveloper::class]);

@@ -18,7 +18,7 @@
                         class="divide-y divide-gray-100 dark:divide-indigo-400 overflow-auto max-h-[55vh]">
                         @foreach ($navbarMenu as $menu)
                             <li class="flex justify-between gap-x-6 py-5" data-id={{ $menu->id }}
-                                data-name={{ $menu->name }} data-ordered={{ $menu->ordered }}
+                                data-name={{ Str::kebab($menu->name) }} data-ordered={{ $menu->ordered }}
                                 data-position={{ $menu->position }}>
                                 <div class="flex gap-x-4 items-center">
                                     <div

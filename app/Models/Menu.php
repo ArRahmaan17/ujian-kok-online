@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class Menu extends Model
 {
@@ -31,6 +32,7 @@ class Menu extends Model
         if (null != $orderedMenu) {
             foreach ($orderedMenu as $index => $menu) {
                 $menu['updated_at'] = now('Asia/Jakarta');
+                $menu['name'] = Str::headline(Str::replace('-', ' ', $menu['name']));
                 self::where('id', $menu['id'])->update($menu);
             }
 

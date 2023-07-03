@@ -51,6 +51,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Log::class, 'user_id', 'id');
     }
+
     public function requested_user(): HasOne
     {
         return $this->hasOne(RequestChangePassword::class, 'user_id', 'id');
@@ -69,8 +70,13 @@ class User extends Authenticatable
         return true;
     }
 
-    static function getUserByUsername(string $username)
+    public static function getUserByUsername(string $username)
     {
         return self::where('username', $username)->limit(1)->first();
+    }
+
+    public static function updatePassword(array $updated)
+    {
+        return self::find($updated['id'])->update($updated);
     }
 }

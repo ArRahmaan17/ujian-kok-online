@@ -89,10 +89,7 @@
             Hiiii,
             {{ $username }}</p>
         <p class="dark:font-bold text-indigo-500 dark:text-slate-500 capitalize text-center mt-2 text-sm dark:text-1xl">
-            please
-            wait for
-            your
-            teacher to approve the request</p>
+            please wait for your teacher to approve the request</p>
         <div class="text-center mt-3">
             <a class="inline-block p-1 px-10 bg-rose-400 dark:bg-rose-500 rounded mx-auto text-sm text-slate-100 dark:text-white"
                 href="{{ route('profile') }}">Kembali</a>
