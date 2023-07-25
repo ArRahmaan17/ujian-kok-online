@@ -3,6 +3,7 @@
 use App\Http\Controllers\Authentication\LoginController;
 use App\Http\Controllers\Developer\Approve;
 use App\Http\Controllers\Developer\MenuController;
+use App\Http\Controllers\Student\ClassroomController;
 use App\Http\Controllers\Student\DashboardController;
 use App\Http\Controllers\Student\ProfileController;
 use App\Http\Middleware\hasPrivileges;
@@ -48,6 +49,13 @@ Route::middleware([LoggedInCheck::class])->prefix('profile')->group(function () 
         ->name('profile.update');
     Route::put('/{id}/change-password', [ProfileController::class, 'changePassword'])
         ->name('profile.change-password');
+});
+Route::prefix('classroom')->group(function () {
+    Route::get('/', [ClassroomController::class, 'index'])->name('classroom')->middleware([hasPrivileges::class]);
+    Route::get('/upload', [ClassroomController::class, 'upload'])->name('classroom.upload');
+    Route::post('/execute', [ClassroomController::class, 'execute'])->name('classroom.execute');
+    Route::get('/template-download', [ClassroomController::class, 'templateDownload'])->name('classroom.template-download');
+    Route::get('/{name}/detail', [ClassroomController::class, 'show'])->name('classroom.detail');
 });
 
 // must be a developer user

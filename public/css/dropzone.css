@@ -233,8 +233,6 @@
 
 .dropzone {
     min-height: 150px;
-    border: 2px solid rgba(0, 0, 0, .3);
-    background: #fff;
     padding: 20px 20px
 }
 
@@ -274,6 +272,8 @@
     border: none;
     padding: 0;
     font: inherit;
+    font-family: inherit;
+    font-size: 1.6rem;
     cursor: pointer;
     outline: inherit
 }
@@ -353,12 +353,13 @@
 }
 
 .dropzone .dz-preview .dz-details .dz-filename {
-    white-space: nowrap
+    white-space: nowrap;
 }
 
 .dropzone .dz-preview .dz-details .dz-filename:hover span {
     border: 1px solid rgba(200, 200, 200, .8);
-    background-color: rgba(255, 255, 255, .8)
+    background-color: rgba(255, 255, 255, .8);
+    margin: 3px;
 }
 
 .dropzone .dz-preview .dz-details .dz-filename:not(:hover) {
@@ -472,7 +473,7 @@
     height: 16px;
     left: 50%;
     top: 50%;
-    margin-top: -8px;
+    margin-top: 15px;
     width: 80px;
     margin-left: -40px;
     background: rgba(255, 255, 255, .9);
