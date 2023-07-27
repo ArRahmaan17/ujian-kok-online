@@ -14,7 +14,7 @@ return new class() extends Migration {
             $table->id();
             $table->string('name');
             $table->string('total_students');
-            $table->integer('homeroom_teacher');
+            $table->integer('homeroom_teacher')->nullable(false);
             $table->foreign('homeroom_teacher')
                 ->references('id')
                 ->on('teachers')

@@ -22,7 +22,7 @@
                 headers: {
                     "X-CSRF-TOKEN": `{{ csrf_token() }}`
                 },
-                uploadMultiple: true,
+                uploadMultiple: false,
                 acceptedFiles: '.xls,.xlsx',
                 autoProcessQueue: false,
                 addRemoveLinks: true,
@@ -42,6 +42,10 @@
                     }
                     $('#process-upload').removeAttr('disabled');
                     return done();
+                },
+                success(file) {
+                    this.removeFile(file);
+                    alertify.error('uploaded successfully!');
                 },
                 error(file, message) {
                     alertify.error(message);

@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
+use App\Imports\ClassroomImport;
 use App\Models\Classroom;
 use App\Models\Student;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ClassroomController extends Controller
 {
@@ -18,31 +20,34 @@ class ClassroomController extends Controller
         if ($user->is_student) {
             $student = Student::where('user_id', $user->id)->first();
             $classrooms = Classroom::with('homeroom')->where('id', $student->class)->first();
+
             return Redirect()->route('classroom.detail', $classrooms->name);
-        } else if ($user->is_teacher) {
+        } elseif ($user->is_teacher) {
             $teacher = Teacher::where('user_id', $user->id)->first();
             $classrooms = Classroom::with('homeroom')->where('homeroom_teacher', $teacher->id)->get();
-        } else if ($user->is_developer) {
+        } elseif ($user->is_developer) {
             $classrooms = Classroom::with('homeroom')->get();
         }
+
         return view('pages.classroom.index', compact('classrooms'));
     }
 
     public function show(Request $request, $name)
     {
-        $user  = $request->user();
+        $user = $request->user();
         if ($user->is_student) {
             $student = Student::where('user_id', $user->id)->first();
             $classroom = Classroom::with('homeroom')->find($student->class)->where('name', $name)->first();
             $students = Student::where('class', $classroom->id)->get();
-        } else if ($user->is_teacher) {
+        } elseif ($user->is_teacher) {
             $teacher = Teacher::where('user_id', $user->id)->first();
             $classroom = Classroom::with('homeroom')->where('homeroom_teacher', $teacher->id)->where('name', $name)->first();
             $students = Student::where('class', $classroom->id)->get();
-        } else if ($user->is_developer) {
+        } elseif ($user->is_developer) {
             $classroom = Classroom::with('homeroom')->where('name', $name)->first();
             $students = Student::where('class', $classroom->id)->get();
         }
+
         return view('pages.classroom.detail', compact('classroom', 'students'));
     }
 
@@ -50,13 +55,22 @@ class ClassroomController extends Controller
     {
         return view('pages.classroom.upload');
     }
+
     public function execute(Request $request)
     {
-        dd($request->file('file'));
+        DB::beginTransaction();
+        try {
+            Excel::import(new ClassroomImport(), $request->file('file'));
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            dd($th);
+            // throw $th;
+        }
     }
+
     public function templateDownload(Request $request)
     {
         return Storage::disk('manual')->download('classroom.xlsx');
-        return Response()->download(Storage::disk('manual')->get('classroom.xlsx'));
     }
 }
