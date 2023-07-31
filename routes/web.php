@@ -54,8 +54,9 @@ Route::prefix('classroom')->group(function () {
     Route::get('/', [ClassroomController::class, 'index'])->name('classroom')->middleware([hasPrivileges::class]);
     Route::get('/upload', [ClassroomController::class, 'upload'])->name('classroom.upload');
     Route::post('/execute', [ClassroomController::class, 'execute'])->name('classroom.execute');
-    Route::get('/template-download', [ClassroomController::class, 'templateDownload'])->name('classroom.template-download');
-    Route::get('/{name}/detail', [ClassroomController::class, 'show'])->name('classroom.detail');
+    Route::get('/classroom-template', [ClassroomController::class, 'classroomTemplateDownload'])->name('classroom.classroom-template');
+    Route::get('/homeroom-download', [ClassroomController::class, 'homeroomTemplateDownload'])->name('classroom.homeroom-template');
+    Route::get('/{className}/detail', [ClassroomController::class, 'show'])->name('classroom.detail');
 });
 
 // must be a developer user

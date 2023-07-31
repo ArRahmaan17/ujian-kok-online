@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Student;
 
+use App\Exports\HomeroomTeacherExport;
 use App\Http\Controllers\Controller;
 use App\Imports\ClassroomImport;
 use App\Models\Classroom;
@@ -32,19 +33,19 @@ class ClassroomController extends Controller
         return view('pages.classroom.index', compact('classrooms'));
     }
 
-    public function show(Request $request, $name)
+    public function show(Request $request, $className)
     {
         $user = $request->user();
         if ($user->is_student) {
             $student = Student::where('user_id', $user->id)->first();
-            $classroom = Classroom::with('homeroom')->find($student->class)->where('name', $name)->first();
+            $classroom = Classroom::with('homeroom')->find($student->class)->where('name', $className)->first();
             $students = Student::where('class', $classroom->id)->get();
         } elseif ($user->is_teacher) {
             $teacher = Teacher::where('user_id', $user->id)->first();
-            $classroom = Classroom::with('homeroom')->where('homeroom_teacher', $teacher->id)->where('name', $name)->first();
+            $classroom = Classroom::with('homeroom')->where('homeroom_teacher', $teacher->id)->where('name', $className)->first();
             $students = Student::where('class', $classroom->id)->get();
         } elseif ($user->is_developer) {
-            $classroom = Classroom::with('homeroom')->where('name', $name)->first();
+            $classroom = Classroom::with('homeroom')->where('name', $className)->first();
             $students = Student::where('class', $classroom->id)->get();
         }
 
@@ -69,8 +70,12 @@ class ClassroomController extends Controller
         }
     }
 
-    public function templateDownload(Request $request)
+    public function classroomTemplateDownload()
     {
         return Storage::disk('manual')->download('classroom.xlsx');
+    }
+    public function homeroomTemplateDownload()
+    {
+        return Excel::download(new HomeroomTeacherExport, 'homeroom.xlsx');
     }
 }
