@@ -85,10 +85,10 @@
             <ellipse cx="556.1612" cy="472.39114" rx="12.17949" ry="47.5"
                 transform="translate(-275.75171 306.36236) rotate(-32.66242)" fill="#3f3d56" />
         </svg>
-        <p class="dark:font-bold text-indigo-400 dark:text-slate-500 capitalize text-center mt-7 text-xl dark:text-2xl">
+        <p class="text-indigo-400 dark:text-slate-500 capitalize text-center mt-7 text-xl dark:text-2xl">
             Hiiii,
             {{ $username }}</p>
-        <p class="dark:font-bold text-indigo-500 dark:text-slate-500 capitalize text-center mt-2 text-sm dark:text-1xl">
+        <p class="text-indigo-500 dark:text-slate-500 capitalize text-center mt-2 text-sm dark:text-1xl">
             please wait for your teacher to approve the request</p>
         <div class="text-center mt-3">
             <a class="inline-block p-1 px-10 bg-rose-400 dark:bg-rose-500 rounded mx-auto text-sm text-slate-100 dark:text-white"

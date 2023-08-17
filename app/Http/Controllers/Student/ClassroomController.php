@@ -74,8 +74,9 @@ class ClassroomController extends Controller
     {
         return Storage::disk('manual')->download('classroom.xlsx');
     }
+
     public function homeroomTemplateDownload()
     {
-        return Excel::download(new HomeroomTeacherExport, 'homeroom.xlsx');
+        return Excel::download(new HomeroomTeacherExport(), 'homeroom.xlsx');
     }
 }

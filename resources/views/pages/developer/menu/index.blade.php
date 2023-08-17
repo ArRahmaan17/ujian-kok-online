@@ -28,13 +28,13 @@
                                     <div class="min-w-0 flex-auto">
                                         <a href="{{ route('menu.edit', $menu->id) }}">
                                             <p
-                                                class="text-sm font-semibold leading-6 text-black hover:text-slate-400 dark:text-indigo-400 dark:hover:text-indigo-600">
+                                                class="text-sm  leading-6 text-black hover:text-slate-400 dark:text-indigo-400 dark:hover:text-indigo-600">
                                                 {{ $menu->name }}
                                             </p>
                                         </a>
                                         <p class="mt-1 truncate text-xs md:text-sm leading-5 flex flex-wrap gap-3 md:block">
                                             <span
-                                                class="inline-block whitespace-nowrap rounded-[0.27rem] {{ $menu->for_developer ? 'bg-green-100 text-green-800 dark:bg-green-300' : 'bg-rose-100 text-rose-800 dark:bg-rose-300' }} px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold leading-none">
+                                                class="inline-block whitespace-nowrap rounded-[0.27rem] {{ $menu->for_developer ? 'bg-green-100 text-green-800 dark:bg-green-300' : 'bg-rose-100 text-rose-800 dark:bg-rose-300' }} px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em]  leading-none">
                                                 Programmer @if ($menu->for_developer)
                                                     <i class="fa-solid fa-check"></i>
                                                 @else
@@ -42,7 +42,7 @@
                                                 @endif
                                             </span>
                                             <span
-                                                class="inline-block whitespace-nowrap rounded-[0.27rem] {{ $menu->for_teacher ? 'bg-green-100 text-green-800 dark:bg-green-300' : 'bg-rose-100 text-rose-800 dark:bg-rose-300' }} px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold leading-none">
+                                                class="inline-block whitespace-nowrap rounded-[0.27rem] {{ $menu->for_teacher ? 'bg-green-100 text-green-800 dark:bg-green-300' : 'bg-rose-100 text-rose-800 dark:bg-rose-300' }} px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em]  leading-none">
                                                 Teacher @if ($menu->for_teacher)
                                                     <i class="fa-solid fa-check"></i>
                                                 @else
@@ -50,7 +50,7 @@
                                                 @endif
                                             </span>
                                             <span
-                                                class="inline-block whitespace-nowrap rounded-[0.27rem] {{ $menu->for_student ? 'bg-green-100 text-green-800 dark:bg-green-300' : 'bg-rose-100 text-rose-800 dark:bg-rose-300' }} px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold leading-none">
+                                                class="inline-block whitespace-nowrap rounded-[0.27rem] {{ $menu->for_student ? 'bg-green-100 text-green-800 dark:bg-green-300' : 'bg-rose-100 text-rose-800 dark:bg-rose-300' }} px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em]  leading-none">
                                                 Student @if ($menu->for_student)
                                                     <i class="fa-solid fa-check"></i>
                                                 @else
@@ -88,13 +88,13 @@
                                     <div class="min-w-0 flex-auto">
                                         <a href="{{ route('menu.edit', $menu->id) }}">
                                             <p
-                                                class="text-sm font-semibold leading-6 text-black hover:text-slate-400 dark:text-indigo-400 dark:hover:text-indigo-600">
+                                                class="text-sm  leading-6 text-black hover:text-slate-400 dark:text-indigo-400 dark:hover:text-indigo-600">
                                                 {{ $menu->name }}
                                             </p>
                                         </a>
                                         <p class="mt-1 truncate text-xs md:text-sm leading-5 flex flex-wrap gap-3 md:block">
                                             <span
-                                                class="inline-block whitespace-nowrap rounded-[0.27rem] {{ $menu->for_developer ? 'bg-green-100 text-green-800 dark:bg-green-300' : 'bg-rose-100 text-rose-800 dark:bg-rose-300' }} px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold leading-none">
+                                                class="inline-block whitespace-nowrap rounded-[0.27rem] {{ $menu->for_developer ? 'bg-green-100 text-green-800 dark:bg-green-300' : 'bg-rose-100 text-rose-800 dark:bg-rose-300' }} px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em]  leading-none">
                                                 Programmer @if ($menu->for_developer)
                                                     <i class="fa-solid fa-check"></i>
                                                 @else
@@ -102,7 +102,7 @@
                                                 @endif
                                             </span>
                                             <span
-                                                class="inline-block whitespace-nowrap rounded-[0.27rem] {{ $menu->for_teacher ? 'bg-green-100 text-green-800 dark:bg-green-300' : 'bg-rose-100 text-rose-800 dark:bg-rose-300' }} px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold leading-none">
+                                                class="inline-block whitespace-nowrap rounded-[0.27rem] {{ $menu->for_teacher ? 'bg-green-100 text-green-800 dark:bg-green-300' : 'bg-rose-100 text-rose-800 dark:bg-rose-300' }} px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em]  leading-none">
                                                 Teacher @if ($menu->for_teacher)
                                                     <i class="fa-solid fa-check"></i>
                                                 @else
@@ -110,7 +110,7 @@
                                                 @endif
                                             </span>
                                             <span
-                                                class="inline-block whitespace-nowrap rounded-[0.27rem] {{ $menu->for_student ? 'bg-green-100 text-green-800 dark:bg-green-300' : 'bg-rose-100 text-rose-800 dark:bg-rose-300' }} px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold leading-none">
+                                                class="inline-block whitespace-nowrap rounded-[0.27rem] {{ $menu->for_student ? 'bg-green-100 text-green-800 dark:bg-green-300' : 'bg-rose-100 text-rose-800 dark:bg-rose-300' }} px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em]  leading-none">
                                                 Student @if ($menu->for_student)
                                                     <i class="fa-solid fa-check"></i>
                                                 @else
@@ -225,21 +225,21 @@
                         <div class="min-w-0 flex-auto">
                             <a href="{{ url('developer/menu') }}/${menu.id}/edit">
                                 <p
-                                    class="text-sm font-semibold leading-6 text-black hover:text-slate-400 dark:text-indigo-400 dark:hover:text-indigo-600">
+                                    class="text-sm  leading-6 text-black hover:text-slate-400 dark:text-indigo-400 dark:hover:text-indigo-600">
                                     ${menu.name}
                                 </p>
                             </a>
                             <p class="mt-1 truncate text-xs md:text-sm leading-5 flex flex-wrap gap-3 md:block">
                                 <span
-                                    class="inline-block whitespace-nowrap rounded-[0.27rem] ${(menu.for_developer) ? 'bg-green-100 text-green-800 dark:bg-green-300': 'bg-rose-100 text-rose-800 dark:bg-rose-300' } px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold leading-none">
+                                    class="inline-block whitespace-nowrap rounded-[0.27rem] ${(menu.for_developer) ? 'bg-green-100 text-green-800 dark:bg-green-300': 'bg-rose-100 text-rose-800 dark:bg-rose-300' } px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em]  leading-none">
                                     Programmer ${(menu.for_developer) ? '<i class="fa-solid fa-check"></i>': '<i class="fa-solid fa-xmark"></i>' }
                                 </span>
                                 <span
-                                    class="inline-block whitespace-nowrap rounded-[0.27rem] ${(menu.for_teacher) ? 'bg-green-100 text-green-800 dark:bg-green-300': 'bg-rose-100 text-rose-800 dark:bg-rose-300' } px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold leading-none">
+                                    class="inline-block whitespace-nowrap rounded-[0.27rem] ${(menu.for_teacher) ? 'bg-green-100 text-green-800 dark:bg-green-300': 'bg-rose-100 text-rose-800 dark:bg-rose-300' } px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em]  leading-none">
                                     Teacher ${(menu.for_teacher) ? '<i class="fa-solid fa-check"></i>': '<i class="fa-solid fa-xmark"></i>' }
                                 </span>
                                 <span
-                                    class="inline-block whitespace-nowrap rounded-[0.27rem] ${(menu.for_student) ? 'bg-green-100 text-green-800 dark:bg-green-300': 'bg-rose-100 text-rose-800 dark:bg-rose-300' } px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold leading-none">
+                                    class="inline-block whitespace-nowrap rounded-[0.27rem] ${(menu.for_student) ? 'bg-green-100 text-green-800 dark:bg-green-300': 'bg-rose-100 text-rose-800 dark:bg-rose-300' } px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em]  leading-none">
                                     Student ${(menu.for_student) ? '<i class="fa-solid fa-check"></i>': '<i class="fa-solid fa-xmark"></i>' }
                                 </span>
                             </p>
@@ -267,21 +267,21 @@
                         <div class="min-w-0 flex-auto">
                             <a href="{{ url('developer/menu') }}/${menu.id}/edit">
                                 <p
-                                    class="text-sm font-semibold leading-6 text-black hover:text-slate-400 dark:text-indigo-400 dark:hover:text-indigo-600">
+                                    class="text-sm  leading-6 text-black hover:text-slate-400 dark:text-indigo-400 dark:hover:text-indigo-600">
                                     ${menu.name}
                                 </p>
                             </a>
                             <p class="mt-1 truncate text-xs md:text-sm leading-5 flex flex-wrap gap-3 md:block">
                                 <span
-                                    class="inline-block whitespace-nowrap rounded-[0.27rem] ${(menu.for_developer) ? 'bg-green-100 text-green-800 dark:bg-green-300': 'bg-rose-100 text-rose-800 dark:bg-rose-300' } px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold leading-none">
+                                    class="inline-block whitespace-nowrap rounded-[0.27rem] ${(menu.for_developer) ? 'bg-green-100 text-green-800 dark:bg-green-300': 'bg-rose-100 text-rose-800 dark:bg-rose-300' } px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em]  leading-none">
                                     Programmer ${(menu.for_developer) ? '<i class="fa-solid fa-check"></i>': '<i class="fa-solid fa-xmark"></i>' }
                                 </span>
                                 <span
-                                    class="inline-block whitespace-nowrap rounded-[0.27rem] ${(menu.for_teacher) ? 'bg-green-100 text-green-800 dark:bg-green-300': 'bg-rose-100 text-rose-800 dark:bg-rose-300' } px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold leading-none">
+                                    class="inline-block whitespace-nowrap rounded-[0.27rem] ${(menu.for_teacher) ? 'bg-green-100 text-green-800 dark:bg-green-300': 'bg-rose-100 text-rose-800 dark:bg-rose-300' } px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em]  leading-none">
                                     Teacher ${(menu.for_teacher) ? '<i class="fa-solid fa-check"></i>': '<i class="fa-solid fa-xmark"></i>' }
                                 </span>
                                 <span
-                                    class="inline-block whitespace-nowrap rounded-[0.27rem] ${(menu.for_student) ? 'bg-green-100 text-green-800 dark:bg-green-300': 'bg-rose-100 text-rose-800 dark:bg-rose-300' } px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold leading-none">
+                                    class="inline-block whitespace-nowrap rounded-[0.27rem] ${(menu.for_student) ? 'bg-green-100 text-green-800 dark:bg-green-300': 'bg-rose-100 text-rose-800 dark:bg-rose-300' } px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em]  leading-none">
                                     Student ${(menu.for_student) ? '<i class="fa-solid fa-check"></i>': '<i class="fa-solid fa-xmark"></i>' }
                                 </span>
                             </p>

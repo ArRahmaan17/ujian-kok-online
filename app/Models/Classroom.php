@@ -10,6 +10,7 @@ class Classroom extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'total_students'];
+
     public function homeroom()
     {
         return $this->hasOne(Teacher::class, 'id', 'homeroom_teacher');

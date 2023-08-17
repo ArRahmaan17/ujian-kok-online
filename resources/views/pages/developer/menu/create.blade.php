@@ -18,7 +18,7 @@
         @csrf
         <div class="space-y-12">
             <div class="border-b border-gray-900/10 pb-12">
-                <h2 class="text-2xl font-semibold leading-7 text-dark dark:text-indigo-600 capitalize">
+                <h2 class="text-2xl leading-7 text-dark dark:text-indigo-600 capitalize">
                     {{ displayRouteName(request()->route()->getname()) }}
                 </h2>
                 <p class="mt-1 text-md leading-6 text-gray-600 dark:text-indigo-300 capitalize">
@@ -27,8 +27,7 @@
 
                 <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <div class="sm:col-span-3">
-                        <label for="name"
-                            class="block text-sm font-medium leading-6 text-dark dark:text-indigo-600 capitalize">menu
+                        <label for="name" class="block text-sm leading-6 text-dark dark:text-indigo-600 capitalize">menu
                             name</label>
                         <div class="mt-2">
                             <input type="text" name="name" id="name" value="{{ $menu->name ?? '' }}"
@@ -42,8 +41,8 @@
                     </div>
 
                     <div class="sm:col-span-3">
-                        <label for="route"
-                            class="block text-sm font-medium leading-6 text-dark dark:text-indigo-600">Route Name</label>
+                        <label for="route" class="block text-sm leading-6 text-dark dark:text-indigo-600">Route
+                            Name</label>
                         <div class="mt-2">
                             <input type="text" name="route" id="route" value="{{ $menu->route ?? '' }}"
                                 class="block w-full
@@ -70,8 +69,7 @@
                     </div>
 
                     <div class="sm:col-span-3">
-                        <label for="position"
-                            class="block text-sm font-medium leading-6 text-dark dark:text-indigo-600 capitalize">menu
+                        <label for="position" class="block text-sm leading-6 text-dark dark:text-indigo-600 capitalize">menu
                             position</label>
                         <div class="mt-2">
                             <select id="position" name="position"
@@ -88,14 +86,14 @@
             </div>
 
             <div class="border-b border-gray-900/10 pb-12">
-                <h2 class="text-2xl font-semibold leading-7 text-dark dark:text-indigo-600 capitalize">Role management</h2>
+                <h2 class="text-2xl leading-7 text-dark dark:text-indigo-600 capitalize">Role management</h2>
                 <p class="mt-1 text-md leading-6 text-gray-600 dark:text-indigo-300 capitalize">
                     take control your user flow in your application
                 </p>
 
                 <div class="mt-10 space-y-10">
                     <fieldset>
-                        <legend class="text-sm font-semibold leading-6 text-dark dark:text-indigo-600">By Role</legend>
+                        <legend class="text-sm leading-6 text-dark dark:text-indigo-600">By Role</legend>
                         <div class="mt-6 space-y-6">
                             <div class="relative flex gap-x-3">
                                 <div class="flex h-6 items-center">
@@ -105,8 +103,7 @@
                                         class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
                                 </div>
                                 <div class="text-sm leading-6">
-                                    <label for="developeruseRoute"
-                                        class="font-medium text-dark dark:text-indigo-600">Developer</label>
+                                    <label for="developeruseRoute" class=text-dark dark:text-indigo-600">Developer</label>
                                 </div>
                             </div>
                             <div class="relative flex gap-x-3">
@@ -116,7 +113,7 @@
                                         class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
                                 </div>
                                 <div class="text-sm leading-6">
-                                    <label for="teacher" class="font-medium text-dark dark:text-indigo-600">Teacher</label>
+                                    <label for="teacher" class=text-dark dark:text-indigo-600">Teacher</label>
                                 </div>
                             </div>
                             <div class="relative flex gap-x-3">
@@ -127,13 +124,13 @@
                                         class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
                                 </div>
                                 <div class="text-sm leading-6">
-                                    <label for="student" class="font-medium text-dark dark:text-indigo-600">Student</label>
+                                    <label for="student" class=text-dark dark:text-indigo-600">Student</label>
                                 </div>
                             </div>
                         </div>
                     </fieldset>
                     <fieldset>
-                        <legend class="text-sm font-semibold leading-6 text-dark dark:text-indigo-600">On Maintenance
+                        <legend class="text-sm leading-6 text-dark dark:text-indigo-600">On Maintenance
                         </legend>
                         <p class="mt-1 text-sm leading-6 text-gray-600">These are condition on your menu
                         </p>
@@ -143,14 +140,14 @@
                                     @if (isset($menu) && $menu->maintenance) @checked(true) @endif type="radio" value="true"
                                     class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600">
                                 <label for="maintenance"
-                                    class="block text-sm font-medium leading-6 text-dark dark:text-indigo-600">Yes</label>
+                                    class="block text-sm leading-6 text-dark dark:text-indigo-600">Yes</label>
                             </div>
                             <div class="flex items-center gap-x-3">
                                 <input id="not-maintenance" name="maintenance" type="radio"
                                     @if (isset($menu) && !$menu->maintenance) @checked(true) @endif value="false"
                                     class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600">
                                 <label for="not-maintenance"
-                                    class="block text-sm font-medium leading-6 text-dark dark:text-indigo-600">No</label>
+                                    class="block text-sm leading-6 text-dark dark:text-indigo-600">No</label>
                             </div>
                         </div>
                     </fieldset>
@@ -158,10 +155,10 @@
             </div>
         </div>
         <div class="mt-6 flex items-center justify-end gap-x-6">
-            <a type="button" class="text-sm font-semibold leading-6 text-dark dark:text-indigo-600"
+            <a type="button" class="text-sm leading-6 text-dark dark:text-indigo-600"
                 href="{{ route('menu') }}">Cancel</a>
             <button type="submit"
-                class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 capitalize">{{ isset($menu) ? 'update' : 'save' }}</button>
+                class="rounded-md bg-indigo-600 px-3 py-2 text-sm text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 capitalize">{{ isset($menu) ? 'update' : 'save' }}</button>
         </div>
     </form>
 @endsection

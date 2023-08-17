@@ -38,15 +38,15 @@
                 <div class="px-1">
                     @if ($user->is_teacher)
                         <label for="teacher_identification_number"
-                            class="block text-sm font-medium leading-6 text-dark dark:text-indigo-300">
+                            class="block text-sm leading-6 text-dark dark:text-indigo-300">
                             Teacher Identification Number</label>
                     @elseif ($user->is_student)
                         <label for="student_identification_number"
-                            class="block text-sm font-medium leading-6 text-dark dark:text-indigo-300">
+                            class="block text-sm leading-6 text-dark dark:text-indigo-300">
                             Student Identification Number</label>
                     @else
                         <label for="developer"
-                            class="block text-sm font-medium leading-6 text-dark dark:text-indigo-300">Developer</label>
+                            class="block text-sm leading-6 text-dark dark:text-indigo-300">Developer</label>
                     @endif
                     <div class="mt-2">
                         <input type="text" readonly
@@ -58,8 +58,7 @@
                     </div>
                 </div>
                 <div class="px-1">
-                    <label for="username"
-                        class="block text-sm font-medium leading-6 text-dark dark:text-indigo-300">Username</label>
+                    <label for="username" class="block text-sm leading-6 text-dark dark:text-indigo-300">Username</label>
                     <div class="mt-2">
                         <input type="text" name="username" id="username" value="{{ $user->username ?? '' }}"
                             class="block w-full
@@ -69,7 +68,7 @@
                     </div>
                 </div>
                 <div class="px-1">
-                    <label for="full_name" class="block text-sm font-medium leading-6 text-dark dark:text-indigo-300">Full
+                    <label for="full_name" class="block text-sm leading-6 text-dark dark:text-indigo-300">Full
                         Name</label>
                     <div class="mt-2">
                         <input type="text" name="full_name" id="full_name"
@@ -82,8 +81,7 @@
                 </div>
                 @if ($user->is_teacher || $user->is_developer)
                     <div class="px-1">
-                        <label for="phone_numbers"
-                            class="block text-sm font-medium leading-6 text-dark dark:text-indigo-300">Phone
+                        <label for="phone_numbers" class="block text-sm leading-6 text-dark dark:text-indigo-300">Phone
                             Number</label>
                         <div class="mt-2">
                             <input type="text" name="phone_numbers" id="phone_numbers"
@@ -97,11 +95,11 @@
                 @endif
                 <div class="mt-3 px-1">
                     <button type="submit"
-                        class="inline-block rounded mt-1 bg-green-500 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]">
+                        class="inline-block rounded mt-1 bg-green-500 px-6 pb-2 pt-2.5 text-xs uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]">
                         Save
                     </button>
                     <a href="{{ route('profile') }}"
-                        class="inline-block rounded mt-1 bg-rose-500 px-2 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#dc4c64] transition duration-150 ease-in-out hover:bg-rose-600 hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:bg-rose-600 focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:outline-none focus:ring-0 active:bg-danger-700 active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(220,76,100,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)]">
+                        class="inline-block rounded mt-1 bg-rose-500 px-2 pb-2 pt-2.5 text-xs uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#dc4c64] transition duration-150 ease-in-out hover:bg-rose-600 hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:bg-rose-600 focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] focus:outline-none focus:ring-0 active:bg-danger-700 active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.3),0_4px_18px_0_rgba(220,76,100,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(220,76,100,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(220,76,100,0.2),0_4px_18px_0_rgba(220,76,100,0.1)]">
                         Cancel
                     </a>
                 </div>

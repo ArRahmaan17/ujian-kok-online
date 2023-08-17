@@ -14,7 +14,7 @@
                         {{-- navbar md >  --}}
                         @foreach ($navbar as $menu)
                             <a href="{{ route($menu->route) }}"
-                                class="{{ activeRoute(url()->full(), $menu->name) > 1 ? 'bg-slate-600 dark:bg-indigo-600 text-white' : 'text-dark hover:bg-slate-400 hover:text-white dark:text-indigo-600 dark:hover:bg-indigo-300' }} block rounded-md px-3 py-2 text-base font-medium">{{ $menu->name }}</a>
+                                class="{{ activeRoute(url()->full(), $menu->name) > 1 ? 'bg-slate-600 dark:bg-indigo-600 text-white' : 'text-dark hover:bg-slate-400 hover:text-white dark:text-indigo-600 dark:hover:bg-indigo-300' }} block rounded-md px-3 py-2 text-base ">{{ $menu->name }}</a>
                         @endforeach
                     </div>
                 </div>
@@ -101,7 +101,7 @@
         <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
             @foreach ($navbar as $menu)
                 <a href="{{ route($menu->route) }}"
-                    class="{{ activeRoute(url()->full(), $menu->name) > 1 ? 'bg-slate-600 dark:bg-indigo-600 text-white' : 'text-dark hover:bg-slate-400 hover:text-white dark:text-indigo-600 dark:hover:bg-indigo-300' }} block rounded-md px-3 py-2 text-base font-medium">{{ $menu->name }}</a>
+                    class="{{ activeRoute(url()->full(), $menu->name) > 1 ? 'bg-slate-600 dark:bg-indigo-600 text-white' : 'text-dark hover:bg-slate-400 hover:text-white dark:text-indigo-600 dark:hover:bg-indigo-300' }} block rounded-md px-3 py-2 text-base ">{{ $menu->name }}</a>
             @endforeach
         </div>
         <div class="border-t border-gray-700 pb-3 pt-4">
