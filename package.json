@@ -27,6 +27,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "laravel-mix-polyfill": "^3.0.1"
+    "laravel-mix-polyfill": "^3.0.1",
+    "npx": "^3.0.0"
   }
 }
