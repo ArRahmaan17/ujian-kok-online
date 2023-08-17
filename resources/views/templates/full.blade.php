@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full font-sans subpixel-antialiased font-light" xmlns:aria="http://www.w3.org/1999/xhtml">
+<html lang="en" class="h-full font-sans subpixel-antialiased font-[395]" xmlns:aria="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">

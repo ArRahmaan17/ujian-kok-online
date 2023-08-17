@@ -1671,6 +1671,21 @@ select {
 .font-light {
   font-weight: 300;
 }
+.font-\[350\] {
+  font-weight: 350;
+}
+.font-\[450\] {
+  font-weight: 450;
+}
+.font-\[400\] {
+  font-weight: 400;
+}
+.font-\[390\] {
+  font-weight: 390;
+}
+.font-\[395\] {
+  font-weight: 395;
+}
 .uppercase {
   text-transform: uppercase;
 }
