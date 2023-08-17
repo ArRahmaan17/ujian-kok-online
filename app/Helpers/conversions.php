@@ -22,6 +22,7 @@ if (!function_exists('displayRouteName')) {
 if (!function_exists('activeRoute')) {
     function activeRoute(string $routeName, string $splitter)
     {
+        $splitter = implode('-', explode(' ', $splitter));
         $explodeRouteName = explode(Str::lower($splitter), $routeName);
 
         return count($explodeRouteName);
