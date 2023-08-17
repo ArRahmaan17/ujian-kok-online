@@ -28,6 +28,6 @@
   "license": "ISC",
   "dependencies": {
     "laravel-mix-polyfill": "^3.0.1",
-    "npx": "^3.0.0"
+    "npx": "^10.2.2"
   }
 }
