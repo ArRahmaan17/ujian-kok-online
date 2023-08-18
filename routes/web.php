@@ -54,9 +54,11 @@ Route::prefix('classroom')->group(function () {
     Route::get('/', [ClassroomController::class, 'index'])->name('classroom')->middleware([hasPrivileges::class]);
     Route::get('/upload', [ClassroomController::class, 'upload'])->name('classroom.upload');
     Route::post('/execute', [ClassroomController::class, 'execute'])->name('classroom.execute');
+    Route::post('/homeroom-execute', [ClassroomController::class, 'executeHomeroom'])->name('homeroom.execute');
     Route::get('/classroom-template', [ClassroomController::class, 'classroomTemplateDownload'])->name('classroom.classroom-template');
-    Route::get('/homeroom-download', [ClassroomController::class, 'homeroomTemplateDownload'])->name('classroom.homeroom-template');
     Route::get('/{className}/detail', [ClassroomController::class, 'show'])->name('classroom.detail');
+    Route::get('/homeroom-upload', [ClassroomController::class, 'uploadHomeroom'])->name('homeroom.upload');
+    Route::get('/homeroom-download', [ClassroomController::class, 'homeroomTemplateDownload'])->name('classroom.homeroom-template');
 });
 
 // must be a developer user

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Student;
 use App\Exports\HomeroomTeacherExport;
 use App\Http\Controllers\Controller;
 use App\Imports\ClassroomImport;
+use App\Imports\HomeroomImport;
 use App\Models\Classroom;
 use App\Models\Student;
 use App\Models\Teacher;
@@ -78,5 +79,23 @@ class ClassroomController extends Controller
     public function homeroomTemplateDownload()
     {
         return Excel::download(new HomeroomTeacherExport(), 'homeroom.xlsx');
+    }
+
+    public function uploadHomeroom()
+    {
+        return view('pages.classroom.upload-homeroom');
+    }
+
+    public function executeHomeroom(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            Excel::import(new HomeroomImport(), $request->file('file'));
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            dd($th);
+            // throw $th;
+        }
     }
 }
