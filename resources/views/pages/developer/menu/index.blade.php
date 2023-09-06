@@ -64,7 +64,7 @@
                                     <p class="text-sm leading-6 text-gray-900 dark:text-indigo-400">
                                         {{ $menu->updated_at != null? Carbon\Carbon::parse($menu->updated_at)->add(-7, 'hours')->diffForHumans(): 'Not Updated Yet' }}
                                     </p>
-                                    <p class="mt-1 text-xs leading-5 text-gray-500 dark:text-indigo-300 capitalize">Created
+                                    <p class="mt-1 text-xs leading-5 text-gray-800 dark:text-indigo-300 capitalize">Created
                                         {{ convertDateTimeToDiff($menu->created_at) }}
                                         by {{ $menu->user->username }}
                                     </p>

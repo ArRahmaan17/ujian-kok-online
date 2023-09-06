@@ -10,14 +10,11 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class HomeroomImport implements ToCollection, WithHeadingRow
 {
-    /**
-     * @param Collection $collection
-     */
     public function collection(Collection $collection)
     {
         foreach ($collection as $index => $collect) {
             $teacher = Teacher::where('full_name', $collect['homeroom_name']);
-            if ($teacher->count() == 1) {
+            if (1 == $teacher->count()) {
                 Classroom::where('name', $collect['classroom_name'])->update(['homeroom_teacher' => $teacher->first()->id]);
             }
         }
